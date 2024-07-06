@@ -34,22 +34,22 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody User user){
+    public R register(@RequestBody User user){
         User user1 = jpaUserService.findByUsername(user.getUsername());
         if(user1 != null){
- //           return R.ok().message("用户已存在").data(null,null);
-            return "用户已存在";
+            return R.error().message("用户已存在");
+   //         return "用户已存在";
         }
         else{
             jpaUserService.insertUser(user);
             if(jpaUserService.findByUsername(user.getUsername()) != null){
-  //              return R.ok().message("注册成功").data(null,null);
-                return "注册成功";
+                return R.ok().message("注册成功");
+    //            return "注册成功";
             }
             else{
                 jpaUserService.deleteUser(user);
-    //            return R.ok().message("注册失败").data(null,null);
-                return "注册失败";
+                return R.error().message("注册失败");
+     //           return "注册失败";
             }
         }
     }
