@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from "vue-router";
+import { useRouter } from "vue-router"
+import {http} from '../../http'
 const router = useRouter()
 const registerInfo=ref({
       username: '',
@@ -10,7 +11,7 @@ const registerInfo=ref({
       confirmPassword:'',
     })
 
-const handleSubmit = () => {
+const handleSubmit = async() => {
     if (!registerInfo.value.username 
     ||!registerInfo.value.name 
     ||!registerInfo.value.email
@@ -27,7 +28,35 @@ const handleSubmit = () => {
 
     // 模拟提交数据
     console.log('提交的注册信息:', registerInfo.value)
-
+    try {
+ //       showLoadingToast({
+  //        message: '登陆中...',
+  //      });
+    const response = await http.post('/user/register', {
+      username: registerInfo.value.username,
+      password: registerInfo.value.password,
+      email:registerInfo.value.email,
+      nickname:registerInfo.value.name
+    })
+    alert(response.data.message)
+    if (response.data.success) {
+ //       closeToast();
+        console.log('注册成功');
+        const user = {
+            userId: registerInfo.value.username,
+            password: registerInfo.value.password
+        };
+        router.push({ name: 'login' })
+ //       state.setUser(user);
+    } else {
+   //     closeToast();
+        console.log('注册失败')
+    }
+    } catch (error) {
+   //     closeToast();
+        console.log('注册失败，请稍后重试')
+        console.error(error)
+    }
     // 清空表单
     registerInfo.value = {
         username: '',
@@ -38,7 +67,7 @@ const handleSubmit = () => {
     }
 
     // 跳转到登录页面
-    router.push({ name: 'index' })
+    
 }
 
 </script>

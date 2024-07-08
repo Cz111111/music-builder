@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { ref } from 'vue'
+import {http} from '../../http'
 const router = useRouter()
 const toRegister=()=>{
     router.push({ name: 'register' });
@@ -11,7 +12,8 @@ const loginForm=ref({
     password: ''
 })
 
-const handleSubmit = () => {
+
+const handleSubmit = async() => {
     if (!loginForm.value.username
     ||!loginForm.value.password ) {
         alert('请填写完整数据')
@@ -20,17 +22,45 @@ const handleSubmit = () => {
 
 
     // 模拟提交数据
-    console.log('提交的注册信息:', loginForm.value)
+    console.log('提交的登录信息:', loginForm.value)
 
-    // 清空表单
-    loginForm.value = {
+    
+
+    try {
+ //       showLoadingToast({
+  //        message: '登陆中...',
+  //      });
+    const response = await http.post('/user/login', {
+      username: loginForm.value.username,
+      password: loginForm.value.password
+    })
+    alert(response.data.message)
+    if (response.data.success) {
+ //       closeToast();
+        console.log('登录成功');
+        const user = {
+            userId: loginForm.value.username,
+            password: loginForm.value.password
+        };
+ //       state.setUser(user);
+        router.push({ name: 'index' })
+    } else {
+   //     closeToast();
+        console.log('用户名或密码错误')
+    }
+    } catch (error) {
+   //     closeToast();
+        console.log('登录失败，请稍后重试')
+        console.error(error)
+    }
+    loginForm.value = {// 清空表单
         username: '',
         password: ''
     }
-
-    // 跳转到登录页面
-    router.push({ name: 'index' })
 }
+    
+   
+
 
 </script>
 
