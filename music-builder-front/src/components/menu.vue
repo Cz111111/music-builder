@@ -15,36 +15,38 @@ const handleClose = (key, keyPath) => {
 
 <template>
   <el-row class="tac">
-    <el-col :span="9" >
+    <el-col :span="24" class = "col">
       <el-menu
         active-text-color="#ffd04b"
-        background-color="#545c64"
+        background-color="black"
         class="el-menu-vertical-demo"
         default-active="2"
         text-color="#fff"
         @open="handleOpen"
         @close="handleClose"
-        style="width: 100%;"
+        style="width: 100%"
       >
-        
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <span>编曲创作</span>
+        <el-menu-item index="1" class = "menu1">
+            <span>这是logo</span>
+            </el-menu-item>
+        <el-menu-item index="2" class = "menu2">
+            <el-icon><icon-menu /></el-icon>
+            <span>编曲创作</span>
         </el-menu-item>
-        <el-menu-item index="3">
-          <el-icon><document /></el-icon>
+        <el-menu-item index="3" class = "menu3">
+          <el-icon><Mic /></el-icon>
           <span>歌唱评分</span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon><setting /></el-icon>
+        <el-menu-item index="4" class = "menu4">
+          <el-icon><Document /></el-icon>
           <span>我的草稿</span>
         </el-menu-item>
-        <el-menu-item index="5">
-          <el-icon><setting /></el-icon>
+        <el-menu-item index="5" class = "menu5">
+          <el-icon><Headset /></el-icon>
           <span>我的歌曲</span>
         </el-menu-item>
-        <el-menu-item index="6">
-          <el-icon><setting /></el-icon>
+        <el-menu-item index="6" class = "menu6">
+          <el-icon><FolderOpened /></el-icon>
           <span>导出文件</span>
         </el-menu-item>
       </el-menu>
@@ -55,5 +57,30 @@ const handleClose = (key, keyPath) => {
 </template>
 
 <style scoped>
-
+.col{
+  padding: 0px;
+}
+.menu1{
+  height:100px;
+}
+.menu2{
+  height:100px;
+}
+.menu3{
+  height:100px;
+}
+.menu4{
+  height:100px;
+}
+.menu5{
+  height:100px;
+}
+.menu6{
+  height:100px;
+}
+  .el-menu-vertical-demo{
+    background-color:rgb(40, 39, 39);
+    height: 100vh;
+    border-right:none;
+  }
 </style>
