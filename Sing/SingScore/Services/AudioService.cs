@@ -8,19 +8,21 @@ namespace SingScore
 
         public AudioService(AudioContext context)
         {
-            context = context;
+            this.context = context;
         }
 
 
-        public void AddAudio(Audio audio)
+        public bool AddAudio(Audio audio)
         {
-            
-                if (context.Audios.Any(a => a.Num == audio.Num))
-                {
-                    throw new InvalidOperationException("The audio already exists.");
-                }
-                context.Audios.Add(audio); // 将音频添加到 DbSet 中
+
+            if (context.Audios.Any(a => a.Title == audio.Title))
+            {
+                //throw new InvalidOperationException("The audio already exists.");
+                return false;
+            }
+            context.Audios.Add(audio); // 将音频添加到 DbSet 中
                 context.SaveChanges(); // 保存更改到数据库
+            return true;
         }
 
         public void RemoveAudio(int audionum)

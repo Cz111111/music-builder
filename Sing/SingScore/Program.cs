@@ -11,10 +11,9 @@ namespace SingScore
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             String? connnectionString = builder.Configuration.GetConnectionString("DB");
-      //      builder.Services.AddDbContext<RecordDbContext>(opt => opt.UseMySQL(connnectionString));
-    //        builder.Services.AddScoped<RecordService>();
-  //          builder.Services.AddScoped<UserService>();
-//            builder.Services.AddScoped<PostService>();
+            builder.Services.AddDbContext<AudioContext>(opt => opt.UseMySQL(connnectionString));
+            builder.Services.AddScoped<AudioService>();
+            builder.Services.AddScoped<HandleMusic>();
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())

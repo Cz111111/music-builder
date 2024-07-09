@@ -63,6 +63,8 @@ namespace SingScore
         { ReverbStyle.ThreeD, new ReverbParameters(0.3f, 150) },
     };
         }
+        
+
 
         public bool IsPlaying
         {
@@ -140,10 +142,11 @@ namespace SingScore
         //触发音频分离的过程，调用Run
         public async Task TransformAsync(string filepath)
         {
+            Console.WriteLine(filepath);
             int exitCode = await RunExternalProcess(filepath);
-
-
         }
+
+        
 
         //得到分离后人声的路径
         public string GetVocalPath(string filepath)
@@ -164,13 +167,15 @@ namespace SingScore
         //运行脚本
         private Task<int> RunExternalProcess(string audioFilePath)
         {
+            Console.WriteLine(audioFilePath);
             return Task.Run(() =>
             {
                 var psi = new ProcessStartInfo
                 {
                     FileName = "python",
-                    //使用脚本，包括脚本路径
-                    Arguments = $"\"{AppDomain.CurrentDomain.BaseDirectory}Scripts\\split.py\" \"{audioFilePath}\"",
+                    //使用脚本，包括脚本路径,在此处采取绝对路径
+                    //Arguments = $"\"{AppDomain.CurrentDomain.BaseDirectory}Scripts\\split.py\" \"{audioFilePath}\"",
+                    Arguments = $"\"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Scripts\\split.py")}\" \"{audioFilePath}\"",
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
@@ -188,10 +193,10 @@ namespace SingScore
                     Task.WaitAll(new Task[] { output, errors });
 
                     // Optionally log the output and errors or handle them as needed
-                    Debug.WriteLine($"Output: {output.Result}");
-                    Debug.WriteLine($"Errors: {errors.Result}");
-
+                    Console.WriteLine($"Output: {output.Result}");
+                    Console.WriteLine($"Errors: {errors.Result}");
                     return process.ExitCode;
+                    
                 }
             });
         }
@@ -571,8 +576,54 @@ namespace SingScore
             return lyrics;
         }
 
+        //自写，调用模型转换
+        public void trans(string audioFilePath)
+        {
+            // 定义Spleeter命令行工具的路径，如果spleeter已经添加到环境变量中，可以直接使用spleeter
+            string spleeterExecutablePath = "spleeter";
+
+            // 定义要使用的Spleeter分离模型，这里使用2stems模型
+            string model = "2stems";
+
+            // 定义输出目录，根据需要可以修改
+            string outputDirectory = "C:/Users/lwq_0/Desktop/music-builder/Sing/SingScore/output/";
+            // 定义ProcessStartInfo对象
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = "spleeter",
+                Arguments = $"separate {audioFilePath} -p spleeter:2stems -o {outputDirectory}",
+                UseShellExecute = false,
+                RedirectStandardOutput = true, // 重定向标准输出
+                RedirectStandardError = true,  // 重定向错误输出
+                CreateNoWindow = true        // 不显示命令行窗口
+            };
+            Console.WriteLine(startInfo.Arguments);
+
+            // 启动进程并等待其完成
+            using (Process process = Process.Start(startInfo))
+            {
+                process.WaitForExit(); // 等待进程结束
+
+                // 读取输出和错误信息
+                string output = process.StandardOutput.ReadToEnd();
+                string errors = process.StandardError.ReadToEnd();
+
+                if (!string.IsNullOrEmpty(errors))
+                {
+                    Console.WriteLine("Error: " + errors);
+                }
+                else
+                {
+                    Console.WriteLine("Output: " + output);
+                    Console.WriteLine("Processing completed successfully for file: " + audioFilePath);
+                }
+            }
+        }
 
     }
+
+
+
 
         public class LyricLine//歌词
         {
