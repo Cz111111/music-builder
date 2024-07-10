@@ -2,6 +2,9 @@
 import { useRouter } from "vue-router";
 import { ref } from 'vue'
 import {http} from '../../http'
+import {useTokenScore} from '../../stores/token.js'
+
+const tokenScore=useTokenScore()
 const router = useRouter()
 const toRegister=()=>{
     router.push({ name: 'register' });
@@ -35,15 +38,18 @@ const handleSubmit = async() => {
       password: loginForm.value.password
     })
     alert(response.data.message)
+    
     if (response.data.success) {
  //       closeToast();
         console.log('登录成功');
-        const user = {
+        tokenScore.setToken(response.data.data.token)
+/*         const user = {
             userId: loginForm.value.username,
-            password: loginForm.value.password
-        };
+            password: loginForm.value.password,
+            token:response.data.token
+        }; */
  //       state.setUser(user);
-        router.push({ name: 'index' })
+        router.push({ name: 'createsong' })
     } else {
    //     closeToast();
         console.log('用户名或密码错误')
@@ -53,6 +59,7 @@ const handleSubmit = async() => {
         console.log('登录失败，请稍后重试')
         console.error(error)
     }
+ //   tokenScore.removeToken()
     loginForm.value = {// 清空表单
         username: '',
         password: ''

@@ -21,6 +21,12 @@ const routes=[
       component: () => import("../views/index/index.vue"),
       // meta: { requiresAuth: true },
   },
+  {
+    path:"/index/createsong",
+    name:"createsong",
+    component: () => import("../views/index/createsong/createsong.vue"),
+    // meta: { requiresAuth: true },
+},
 ];
 
 const router= createRouter(
