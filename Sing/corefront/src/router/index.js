@@ -4,12 +4,12 @@ import { createRouter,createWebHashHistory } from "vue-router";
 const routes=[
    
     {
-      path:"/",
+      path:"/upload",
       name:"upload",
       component: () => import("../pages/upload.vue"),
   },
   {
-    path:"/kmain",
+    path:"/",
     name:"kmain",
     component: () => import("../pages/kmain.vue"),
   },

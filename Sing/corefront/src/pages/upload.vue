@@ -9,8 +9,9 @@
 <script  lang="ts" setup>
 import { ref } from 'vue'
 import { http } from '../http';
+import { useRouter } from 'vue-router';
 const inputText = ref('');
-
+const router = useRouter();
 
 
 
@@ -26,8 +27,9 @@ const submit = async () => {
       );
         
         console.log(response.data);
+        router.push('/kmain');
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
       }
 }
 

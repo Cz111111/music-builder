@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 
 namespace SingScore
 {
@@ -8,6 +9,7 @@ namespace SingScore
     {
         private readonly AudioService audioService;
         private readonly HandleMusic _handleMusic = new HandleMusic();
+        private readonly Functions functions = new Functions();
         public AudioController(AudioService audioService)
         {
             this.audioService = audioService;
@@ -17,6 +19,7 @@ namespace SingScore
         public async Task<IActionResult> UploadFile([FromBody] FileDTO file)
         {
             string audioFile = file.audioFile;
+
             if (audioFile == null || audioFile.Length == 0)
             {
                 return BadRequest("No file uploaded.");
@@ -30,6 +33,7 @@ namespace SingScore
             {
                 return BadRequest("Only MP3 or WAV files are allowed.");
             }
+
 
 
             //将上传的文件给存储到数据库中去
@@ -63,6 +67,25 @@ namespace SingScore
 
         }
 
-        
+        [HttpGet("draw")]
+        public async Task<ActionResult<List<float>>> GetFrequencyData(string filepath)
+        {
+            if (string.IsNullOrEmpty(filepath))
+            {
+                return BadRequest("File path is required.");
+            }
+            try
+            {
+                // 调用之前定义的CalculateFrequency_halfsecond方法
+                var frequencyData = await Functions.CalculateFrequency_halfsecond(filepath);
+                return Ok(frequencyData);
+            }
+            catch (System.Exception ex)
+            {
+                // 如果有异常发生，返回错误信息
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
     }
 }

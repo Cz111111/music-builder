@@ -3,7 +3,7 @@ let baseURL = '/api'        //关键代码
 
 export const http = axios.create({
     baseURL ,
-    timeout : 5000,
+    timeout : 20000,
     headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\lwq_0\\desktop\\music-builder\\sing\\singscore\\dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\controllers\\audiocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:controllers\\audiocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\services\\audioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:repostories\\audiocontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\lwq_0\\desktop\\music-builder\\sing\\singscore\\dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\scripts\\split.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:scripts\\split.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\lwq_0\\desktop\\music-builder\\sing\\singscore\\services\\handle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\services\\handle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\handle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\models\\audio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,11 +54,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "FileDTO.cs",
               "DocumentMoniker": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\DTO\\FileDTO.cs",
               "RelativeDocumentMoniker": "DTO\\FileDTO.cs",
@@ -71,7 +71,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "split.py",
               "DocumentMoniker": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Scripts\\split.py",
               "RelativeDocumentMoniker": "Scripts\\split.py",
@@ -79,24 +79,24 @@
               "RelativeToolTip": "Scripts\\split.py",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAABpAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
-              "WhenOpened": "2024-07-09T02:59:28.399Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-09T02:59:28.399Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Functions.cs",
               "DocumentMoniker": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Services\\Functions.cs",
               "RelativeDocumentMoniker": "Services\\Functions.cs",
               "ToolTip": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Services\\Functions.cs",
               "RelativeToolTip": "Services\\Functions.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAIwAAAAAAAAAAA",
+              "ViewState": "AQIAAO8AAAAAAAAAAAAvwPkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T01:34:23.223Z"
+              "WhenOpened": "2024-07-09T01:34:23.223Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Handle.cs",
               "DocumentMoniker": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Services\\Handle.cs",
               "RelativeDocumentMoniker": "Services\\Handle.cs",
@@ -104,18 +104,17 @@
               "RelativeToolTip": "Services\\Handle.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAE8AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-09T00:41:24.714Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-09T00:41:24.714Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "AudioController.cs",
               "DocumentMoniker": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Controllers\\AudioController.cs",
               "RelativeDocumentMoniker": "Controllers\\AudioController.cs",
               "ToolTip": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Controllers\\AudioController.cs",
               "RelativeToolTip": "Controllers\\AudioController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAtAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAFIAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-08T03:58:00.158Z",
               "EditorCaption": ""
@@ -141,7 +140,7 @@
               "RelativeDocumentMoniker": "Services\\AudioService.cs",
               "ToolTip": "C:\\Users\\lwq_0\\Desktop\\music-builder\\Sing\\SingScore\\Services\\AudioService.cs",
               "RelativeToolTip": "Services\\AudioService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBgAAAAYAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-08T03:46:12.707Z",
               "EditorCaption": ""

@@ -1,6 +1,32 @@
 [
   {
     "ContainingType": "SingScore.AudioController",
+    "Method": "GetFrequencyData",
+    "RelativePath": "api/sing/draw",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filepath",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[System.Single, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SingScore.AudioController",
     "Method": "UploadFile",
     "RelativePath": "api/sing/uploadfile",
     "HttpMethod": "POST",
