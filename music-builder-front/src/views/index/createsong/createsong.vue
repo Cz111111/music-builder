@@ -2,36 +2,43 @@
 import { useRouter } from "vue-router";
 import { ref } from 'vue'
 import { useTokenScore } from '../../../stores/token.js'
+import { useUsername } from '../../../stores/username.js'
 import {http} from '../../../http'
 const router = useRouter()
 const tokenScore = useTokenScore()
+const usernameScore = useUsername()
 
 import asideMenu from "../../../components/menu.vue";
 import userDropdown from "../../../components/dropdown.vue";
 import scroll from "../../../components/scrollbox.vue";
 
-const loginForm=ref({
-    username: '',
-    password: ''
+const songForm=ref({
+    songName: '',
+    songWord: '',
+    address: ''
 })
 
 
 const handleSubmit = async() => {
-    if (!loginForm.value.username
-    ||!loginForm.value.password ) {
+    if (!songForm.value.songname
+    ||!songForm.value.songword
+    ||!songForm.value.address) {
         alert('请填写完整数据')
         return
     }
+    console.log('提交的信息:', songForm.value)
+    console.log(usernameScore.username)
     // 模拟提交数据
-    console.log('111信息:', tokenScore.token)
     try {
  //       showLoadingToast({
   //        message: '登陆中...',
   //      });
-    const response = await http.post('/createsong', 
+    const response = await http.post('/song/insert', 
     {
-      username:loginForm.value.username,
-      password: loginForm.value.password
+      username:usernameScore.username,
+      songname:songForm.value.songname,
+      songword:songForm.value.songword,
+      address:songForm.value.address
     },{
       headers:{
         'Authorization':tokenScore.token
@@ -41,12 +48,6 @@ const handleSubmit = async() => {
     alert(response.data.message)
     if (response.data.success) {
  //       closeToast();
-        console.log('测试成功');
-        const user = {
-            userId: loginForm.value.username,
-            password: loginForm.value.password,
-            token:response.data.token
-        };
  //       state.setUser(user);
  //       router.push({ name: 'index' })
     } else {
@@ -58,9 +59,10 @@ const handleSubmit = async() => {
         console.log('测试失败，请稍后重试')
         console.error(error)
     }
-    loginForm.value = {// 清空表单
-        username: '',
-        password: ''
+    songForm.value = {// 清空表单
+      songname: '',
+      songword: '',
+      address: ''
     }
 }
 
@@ -91,22 +93,29 @@ const handleSubmit = async() => {
           <el-row :gutter="12"  class="row-box">
             
             <el-col  :span="24">
-                <form id="registerForm" @submit.prevent="handleSubmit">
+                <form id="createsongForm" @submit.prevent="handleSubmit">
                 <div class="form-group">
-                    <label for="test1">test1</label>
+                    <label for="歌曲名">歌曲名</label>
                     <div class="input">
                         <div class="icons"><el-icon :size="17"><User style="color: #7c7c7c;"/></el-icon></div>
-                        <input type="text" id="username" name="username" placeholder="test1" v-model="loginForm.username">
+                        <input type="text" id="songname" name="songname" placeholder="歌曲名" v-model="songForm.songname">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="test2">test2</label>
+                    <label for="歌词">歌词</label>
                     <div class="input">
                         <div class="icons"><el-icon :size="17"><Lock style="color: #7c7c7c;" /></el-icon></div>
-                        <input type="password" id="password" name="password" placeholder="test2" v-model="loginForm.password">
+                        <input type="text" id="songword" name="songword" placeholder="歌词" v-model="songForm.songword">
                     </div>
                 </div>
-                <button type="submit" class="submit">test</button>
+                <div class="form-group">
+                    <label for="地址">地址</label>
+                    <div class="input">
+                        <div class="icons"><el-icon :size="17"><Lock style="color: #7c7c7c;" /></el-icon></div>
+                        <input type="text" id="address" name="address" placeholder="地址" v-model="songForm.address">
+                    </div>
+                </div>
+                <button type="submit" class="submit">确定</button>
             </form>
             </el-col>
           </el-row>

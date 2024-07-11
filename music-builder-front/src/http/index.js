@@ -1,12 +1,15 @@
 import axios from "axios";
-import { useTokenScore } from '../stores/token.js'
+// import { useTokenScore } from '../stores/token.js'
+
+// const tokenScore = useTokenScore()
+// console.log(tokenScore.token,8888)
 let baseURL = '/api'        //关键代码
 export const http = axios.create({
     baseURL ,
     timeout : 5000,
     headers: {
     'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
     },
   });
 

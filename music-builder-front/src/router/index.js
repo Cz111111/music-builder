@@ -28,6 +28,12 @@ const routes=[
     // meta: { requiresAuth: true },
 },
 {
+  path:"/index/mysong",
+  name:"mysong",
+  component: () => import("../views/index/mysong/mysong.vue"),
+  // meta: { requiresAuth: true },
+},
+{
   path:"/render",
   name:"render",
   component: () => import("../views/render/render.vue"),

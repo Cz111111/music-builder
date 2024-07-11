@@ -25,7 +25,7 @@ import card from "../../components/card.vue";
           </el-row>
           <el-row :gutter="12"  class="row-box">
             
-            <el-col  :span="8">
+<!--             <el-col  :span="8">
                 <card shadow="always" class="el-card"></card>
             </el-col>
             <el-col  :span="8">
@@ -33,7 +33,7 @@ import card from "../../components/card.vue";
             </el-col>
             <el-col  :span="8">
                 <card shadow="always" class="el-card"></card>
-            </el-col>
+            </el-col> -->
           </el-row>
         </el-main>
       </el-container>

@@ -1,3 +1,11 @@
+<script setup>
+import { defineProps } from 'vue';
+defineProps(['item']);
+</script>
+
+
+
+
 <template>
     <el-card 
     active-text-color="#ffd04b"
@@ -7,10 +15,10 @@
           <span>歌</span>
         </div>
       </template> -->
-      <p v-for="o in 4" :key="o" class="text item">{{ 'List item ' + '歌词' }}</p>
+      <div><p>{{ item.songword }}</p></div>
       <template #footer>
         <div class="mb-4">
-            <span>这是歌名</span>
+            <div>{{item.songname}}</div>
             <div class = "button">
                 <el-button round>导出</el-button>
                 <el-button round>编辑</el-button>

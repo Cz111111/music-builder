@@ -11,6 +11,9 @@ const handleOpen = (key, keyPath) => {
 const handleClose = (key, keyPath) => {
   console.log(key, keyPath)
 }
+
+
+
 </script>
 
 <template>
@@ -25,11 +28,12 @@ const handleClose = (key, keyPath) => {
         @open="handleOpen"
         @close="handleClose"
         style="width: 100%"
+        :router="true"
       >
-        <el-menu-item index="1" class = "menu1">
+        <el-menu-item index="/index" class = "menu1">
             <span>这是logo</span>
             </el-menu-item>
-        <el-menu-item index="2" class = "menu2">
+        <el-menu-item index="/index/createsong" class = "menu2">
             <el-icon><icon-menu /></el-icon>
             <span>编曲创作</span>
         </el-menu-item>
@@ -41,7 +45,7 @@ const handleClose = (key, keyPath) => {
           <el-icon><Document /></el-icon>
           <span>我的草稿</span>
         </el-menu-item>
-        <el-menu-item index="5" class = "menu5">
+        <el-menu-item index="/index/mysong" class = "menu5">
           <el-icon><Headset /></el-icon>
           <span>我的歌曲</span>
         </el-menu-item>
