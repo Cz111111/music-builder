@@ -27,6 +27,12 @@ const routes=[
     component: () => import("../views/index/createsong/createsong.vue"),
     // meta: { requiresAuth: true },
 },
+{
+  path:"/render",
+  name:"render",
+  component: () => import("../views/render/render.vue"),
+  // meta: { requiresAuth: true },
+},
 ];
 
 const router= createRouter(

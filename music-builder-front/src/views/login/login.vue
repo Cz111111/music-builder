@@ -49,7 +49,7 @@ const handleSubmit = async() => {
             token:response.data.token
         }; */
  //       state.setUser(user);
-        router.push({ name: 'createsong' })
+        router.push({ name: 'render' })
     } else {
    //     closeToast();
         console.log('用户名或密码错误')
