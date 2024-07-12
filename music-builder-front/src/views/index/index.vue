@@ -5,7 +5,19 @@ const router = useRouter()
 
 import asideMenu from "../../components/menu.vue";
 import userDropdown from "../../components/dropdown.vue";
-import card from "../../components/card.vue";
+
+const largeButtonRef = ref(null); // 创建一个引用，用于获取按钮元素
+
+// 定义一个方法用于处理按钮点击事件
+function handleCreateButtonClick() {
+  // 使用Vue Router进行跳转
+  router.push('/index/createsong');
+}
+
+function handleImportButtonClick() {
+  // 使用Vue Router进行跳转
+  router.push('/your-destination-path');
+}
 </script>
 
 
@@ -20,20 +32,30 @@ import card from "../../components/card.vue";
           <userDropdown></userDropdown>
         </el-header>
         <el-main class = "main">
-          <el-row>
-            <p>最近打开</p>
-          </el-row>
-          <el-row :gutter="12"  class="row-box">
+          <el-row :gutter="24"  class="row-box">
             
-<!--             <el-col  :span="8">
-                <card shadow="always" class="el-card"></card>
+            <el-col  :span="12">
+            <div class="button-container">
+              <el-button 
+                class="square-button" 
+                type="primary" 
+                @click="handleCreateButtonClick"
+                ref="largeButtonRef">
+                开始创作
+              </el-button>
+            </div>
             </el-col>
-            <el-col  :span="8">
-                <card shadow="always" class="el-card"></card>
+            <el-col  :span="12">
+              <div class="button-container">
+              <el-button 
+                class="square-button" 
+                type="primary" 
+                @click="handleImportButtonClick"
+                ref="largeButtonRef">
+                导入文件
+              </el-button>
+            </div>
             </el-col>
-            <el-col  :span="8">
-                <card shadow="always" class="el-card"></card>
-            </el-col> -->
           </el-row>
         </el-main>
       </el-container>
@@ -42,6 +64,36 @@ import card from "../../components/card.vue";
 </template>
 
 <style scoped>
+.button-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+/*   align-items: center; /* 垂直居中 */ 
+  height: 100vh; /* 容器高度占满视口高度 */
+  margin-top: 200px; /* 添加上边距 */
+}
+
+/* 按钮样式 */
+.square-button {
+  width: 200px; /* 按钮宽度，根据需要调整 */
+  height: 200px; /* 按钮高度，接近正方形的比例 */
+  padding: 0; /* 移除内边距 */
+  text-align: center;
+  line-height: 200px; /* 使文字垂直居中，与按钮高度一致 */
+  font-size: 20px; /* 根据需要调整按钮文字大小 */
+  color: #fff; /* 按钮文字颜色 */
+  background-color: #4f5356; /* 按钮背景颜色 */
+  border: none; /* 移除边框 */
+  border-radius: 10px; /* 根据需要调整圆角 */
+}
+
+@media (max-width: 768px) {
+  .square-button {
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    font-size: 16px;
+  }
+}
 .header{
   background-color:rgba(19, 15, 15, 0.977);
   border-left:none;
@@ -58,19 +110,6 @@ import card from "../../components/card.vue";
 
   display: flex;
   flex-flow: wrap;
-}
-.row-box .el-card {
-  min-width: 0%;
-  margin-left:0px;
-  height: 100%;
-  top:10%;
-  border: 0px;
-  box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
-  background-color:rgb(40, 39, 39);
-  
-}
-.el-card{
-  color:azure;
 }
 .aside-menu{
   height: 100vh;
