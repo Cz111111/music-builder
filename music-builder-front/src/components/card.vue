@@ -46,8 +46,8 @@ defineProps(['item']);
         </div>
         <div class="button">
           <el-button round>导出</el-button>
-          <el-button round>编辑</el-button>
-          <el-button round>删除</el-button>
+          <el-button round>编辑()</el-button>
+          <el-button round>删除()</el-button>
         </div>
       </div>
       </template>

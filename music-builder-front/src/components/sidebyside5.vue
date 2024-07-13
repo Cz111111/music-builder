@@ -5,18 +5,20 @@
         class="square-button"
         @click="openDialog"
       >
-      袁轲功能五
+      AI音乐生成
       </el-button>
       <div class="text-container">
-        袁轲功能五描述栏
+        <el-col :span="12">
+        AI根据描述性质的关键词（英文）生成一段音乐可以在关键词中指定是否有人声
+        </el-col>
       </div>
       <!-- 添加el-dialog组件 -->
-      <el-dialog v-model="dialogVisible" title="弹窗标题" width="500">
+      <el-dialog v-model="dialogVisible" title="AI音乐生成" width="500">
         <el-form :model="form" @submit.prevent="handleSubmit">
           <el-form-item label="关键词（最好英文）" :label-width="formLabelWidth">
             <el-input v-model="form.keyword" autocomplete="off" />
           </el-form-item>
-          <button type="submit">提交</button>
+          <button type="submit">确定</button>
         </el-form>
         <template #footer>
         </template>
@@ -87,16 +89,19 @@ const handleSubmit = async () => {
   align-items: center;
 }
 .square-button {
-  width: 100px; /* 设置宽度为100px */
+  width: 200px; /* 设置宽度为100px */
   height: 100px; /* 设置高度为100px，与宽度相同，形成正方形 */
   padding: 0; /* 移除内边距，确保按钮大小不变 */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: darkgrey;
+  margin-left: 100px;
   /* 其他样式保持不变 */
 }
 .text-container {
   flex-grow: 1;
+  margin-left: 50px;
   /* 其他样式保持不变 */
 }
   </style>

@@ -5,30 +5,37 @@
         class="square-button"
         @click="openDialog"
       >
-        袁轲功能一
+      AI清唱音乐合成
       </el-button>
       <div class="text-container">
-        袁轲功能一描述栏
+        <el-col :span="12">
+        AI根据歌手列表中指定的歌手，导入的人声midi，输入的相匹配的歌词合成歌曲。需要为歌曲命名
+        </el-col>
       </div>
       <!-- 添加el-dialog组件 -->
-      <el-dialog v-model="dialogVisible" title="弹窗标题" width="500">
+      <el-dialog v-model="dialogVisible" title="AI清唱音乐合成" width="500">
         <el-form :model="form" @submit.prevent="handleSubmit">
           <el-form-item label="歌词:" :label-width="formLabelWidth">
             <el-input v-model="form.name" autocomplete="off" />
           </el-form-item>
           <el-form-item label="歌手名:" :label-width="formLabelWidth">
             <el-select v-model="form.region" placeholder="Please select a zone">
-              <el-option label="歌手1" value="shanghai" />
-              <el-option label="蔡徐坤" value="beijing" />
+              <el-option label="云与光" value="云与光" />
+              <el-option label="Opencpop" value="Opencpop" />
+              <el-option label="星空" value="星空" />
+              <el-option label="霖离" value="霖离" />
+              <el-option label="霁何虹" value="霁何虹" />
+              <el-option label="华晓熊" value="华晓熊" />
+              <el-option label="秋绘" value="秋绘" />
             </el-select>
           </el-form-item>
           <el-form-item label="MIDI文件:" :label-width="formLabelWidth">
             <input type="file" id="midi" @change="handleMidiChange" />
           </el-form-item>
-          <el-form-item label="WAV 文件" :label-width="formLabelWidth">
-            <input input type="file" id="wavname" @change="handleWavChange" />
+          <el-form-item label="歌名" :label-width="formLabelWidth">
+            <el-input v-model="form.wavname" autocomplete="off" />
           </el-form-item>
-          <button type="submit">提交</button>
+          <button type="submit">确定</button>
         </el-form>
         <template #footer>
         </template>
@@ -47,7 +54,7 @@
   name: '',
   region: null,
   midi: null,
-  wavname: null,
+  wavname: '',
 });
 
 const handleMidiChange = (event) => {
@@ -57,12 +64,6 @@ const handleMidiChange = (event) => {
   }
 };
 
-const handleWavChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    form.value.wavname = file;
-  }
-};
 
 function openDialog() {
   dialogVisible.value = true; // 打开弹窗
@@ -108,7 +109,7 @@ const handleSubmit = async () => {
     midi: null,
     region: null,
     name: '',
-    wavname: null
+    wavname: ''
   }
 }
   </script>
@@ -119,16 +120,19 @@ const handleSubmit = async () => {
   align-items: center;
 }
 .square-button {
-  width: 100px; /* 设置宽度为100px */
+  width: 200px; /* 设置宽度为100px */
   height: 100px; /* 设置高度为100px，与宽度相同，形成正方形 */
   padding: 0; /* 移除内边距，确保按钮大小不变 */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: darkgrey;
+  margin-left: 100px;
   /* 其他样式保持不变 */
 }
 .text-container {
   flex-grow: 1;
+  margin-left: 50px;
   /* 其他样式保持不变 */
 }
   </style>

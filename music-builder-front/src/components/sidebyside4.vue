@@ -5,21 +5,23 @@
         class="square-button"
         @click="openDialog"
       >
-      袁轲功能四
+      AI生成伴奏midi
       </el-button>
       <div class="text-container">
-        袁轲功能四描述栏
+<!--         <el-col :span="12"> -->
+        选择一种乐器生成一段伴奏midi
+<!--         </el-col> -->
       </div>
       <!-- 添加el-dialog组件 -->
-      <el-dialog v-model="dialogVisible" title="弹窗标题" width="500">
+      <el-dialog v-model="dialogVisible" title="AI生成伴奏midi" width="500">
         <el-form :model="form" @submit.prevent="handleSubmit">
           <el-form-item label="乐器:" :label-width="formLabelWidth">
             <el-select v-model="form.instrument" placeholder="Please select a zone">
-              <el-option label="歌手1" value="shanghai" />
-              <el-option label="蔡徐坤" value="beijing" />
+              <el-option label="原声大钢琴" value="Acoustic Grand" />
+              <el-option label="管弦乐打击" value="Orchestra Hit" />
             </el-select>
           </el-form-item>
-          <button type="submit">提交</button>
+          <button type="submit">确定</button>
         </el-form>
         <template #footer>
         </template>
@@ -105,16 +107,19 @@ const handleSubmit = async () => {
   align-items: center;
 }
 .square-button {
-  width: 100px; /* 设置宽度为100px */
+  width: 200px; /* 设置宽度为100px */
   height: 100px; /* 设置高度为100px，与宽度相同，形成正方形 */
   padding: 0; /* 移除内边距，确保按钮大小不变 */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: darkgrey;
+  margin-left: 100px;
   /* 其他样式保持不变 */
 }
 .text-container {
   flex-grow: 1;
+  margin-left: 50px;
   /* 其他样式保持不变 */
 }
   </style>
