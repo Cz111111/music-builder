@@ -5,6 +5,7 @@ const router = useRouter()
 
 import asideMenu from "../../components/menu.vue";
 import userDropdown from "../../components/dropdown.vue";
+import uploadfile from "@/components/uploadfile.vue";
 
 const largeButtonRef = ref(null); // 创建一个引用，用于获取按钮元素
 
@@ -46,15 +47,10 @@ function handleImportButtonClick() {
             </div>
             </el-col>
             <el-col  :span="12">
-              <div class="button-container">
-              <el-button 
-                class="square-button" 
-                type="primary" 
-                @click="handleImportButtonClick"
-                ref="largeButtonRef">
-                导入文件
-              </el-button>
-            </div>
+              <div class="upload-container">
+              <!-- uploadFile 组件 -->
+                <uploadfile></uploadfile>
+              </div>
             </el-col>
           </el-row>
         </el-main>
@@ -64,11 +60,13 @@ function handleImportButtonClick() {
 </template>
 
 <style scoped>
+.el-aside{
+  background-color:rgb(40, 39, 39);
+}
 .button-container {
   display: flex;
   justify-content: center; /* 水平居中 */
 /*   align-items: center; /* 垂直居中 */ 
-  height: 100vh; /* 容器高度占满视口高度 */
   margin-top: 200px; /* 添加上边距 */
 }
 
@@ -103,8 +101,16 @@ function handleImportButtonClick() {
   border-left: none;
   color:azure;
 }
-.el-row{
-    margin-bottom: 20px;
+.el-row {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  margin-bottom: 20px;
+}
+.upload-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  width: 100%; /* 占满其父容器的宽度 */
+  margin-top: 300px; /* 添加上边距 */
 }
 .row-box {
 

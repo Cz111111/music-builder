@@ -3,21 +3,37 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { http } from '../../http/index.js'
 import { useTokenScore } from '../../stores/token.js'
+import asideMenu from '../../components/menu.vue'
+import userDropdown from '../../components/dropdown.vue'
 const router = useRouter()
 const tokenScore = useTokenScore()
 const form = ref({
-  midi: '',
+  midi: null,
   singer: '',
   lyrics: '',
-  wavname: ''
+  wavname:null
 })
+const handleMidiChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    form.value.midi = file; 
+  }
+};
+
+const handleWavChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    form.value.wavname = file; 
+  }
+};
 
 const handleSubmit = async () => {
+  console.log(form.value)
   if (!form.value.midi || !form.value.singer || !form.value.lyrics || !form.value.wavname) {
     alert('请填写完整数据')
     return
   }
-
+  console.log(form.value)
   try {
     const response = await http.post('render/submit', 
     {
@@ -56,14 +72,20 @@ const handleSubmit = async () => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header class="header">Header</el-header>
+      <el-aside width="120px">
+        <asideMenu></asideMenu>
+      </el-aside>
+      <el-container>
+      <el-header class="header">
+        <userDropdown></userDropdown>
+      </el-header>
       <el-main class="main">
         <div class="register-container">
           <div class="title">提交信息</div>
           <form @submit.prevent="handleSubmit">
             <div class="form-group">
               <label for="midi">MIDI 文件路径:</label>
-              <input type="text" id="midi" v-model="form.midi" required>
+              <input type="file" id="midi" @change="handleMidiChange" />
             </div>
             <div class="form-group">
               <label for="singer">歌手名:</label>
@@ -75,15 +97,90 @@ const handleSubmit = async () => {
             </div>
             <div class="form-group">
               <label for="wavname">WAV 文件路径:</label>
-              <input type="text" id="wavname" v-model="form.wavname" required>
+              <input type="file" id="wavname" @change="handleWavChange" />
             </div>
             <button type="submit">提交</button>
           </form>
         </div>
       </el-main>
     </el-container>
+    </el-container>
   </div>
 </template>
+
+<template>
+  <el-button plain @click="dialogTableVisible = true">
+    Open a Table nested Dialog
+  </el-button>
+
+  <el-button plain @click="dialogFormVisible = true">
+    Open a Form nested Dialog
+  </el-button>
+
+  <el-dialog v-model="dialogFormVisible" title="Shipping address" width="500">
+    <el-form :model="form">
+      <el-form-item label="Promotion name" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="Zones" :label-width="formLabelWidth">
+        <el-select v-model="form.region" placeholder="Please select a zone">
+          <el-option label="Zone No.1" value="shanghai" />
+          <el-option label="Zone No.2" value="beijing" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">
+          Confirm
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+
+const dialogTableVisible = ref(false)
+const dialogFormVisible = ref(false)
+const formLabelWidth = '140px'
+
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
+
+const gridData = [
+  {
+    date: '2016-05-02',
+    name: 'John Smith',
+    address: 'No.1518,  Jinshajiang Road, Putuo District',
+  },
+  {
+    date: '2016-05-04',
+    name: 'John Smith',
+    address: 'No.1518,  Jinshajiang Road, Putuo District',
+  },
+  {
+    date: '2016-05-01',
+    name: 'John Smith',
+    address: 'No.1518,  Jinshajiang Road, Putuo District',
+  },
+  {
+    date: '2016-05-03',
+    name: 'John Smith',
+    address: 'No.1518,  Jinshajiang Road, Putuo District',
+  },
+]
+</script>
 
 <style scoped>
 /* 保留原始样式，根据需要进行调整 */

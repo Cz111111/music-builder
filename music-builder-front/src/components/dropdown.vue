@@ -15,6 +15,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+
   </template>
   
   <script lang="ts" setup>
@@ -27,9 +28,6 @@
     display: flex;
    align-items: center;
     outline: unset;
-/*     background-color:rgba(19, 15, 15, 0.977); */
-  }
-  .el-dropdown-link1{
 /*     background-color:rgba(19, 15, 15, 0.977); */
   }
   .el-dropdown{

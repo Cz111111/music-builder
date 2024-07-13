@@ -35,7 +35,7 @@ const handleClose = (key, keyPath) => {
             </el-menu-item>
         <el-menu-item index="/index/createsong" class = "menu2">
             <el-icon><icon-menu /></el-icon>
-            <span>编曲创作</span>
+            <span>AI创作</span>
         </el-menu-item>
         <el-menu-item index="3" class = "menu3">
           <el-icon><Mic /></el-icon>

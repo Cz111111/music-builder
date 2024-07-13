@@ -1,0 +1,218 @@
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+}
+package controller;
+
+import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import service.JpaUserService;
+
+@RestController
+@RequestMapping
+public class UserController {
+    @Autowired
+    JpaUserService userService;
+
+    @PostMapping("login")
+    public String login(@RequestBody User user){
+        User user1 = userService.findByUsername(user.getUsername());
+        if(user1 == null){
+            return "wrongname";
+        }
+        if(user1.getPassword().equals(user.getPassword())){
+            return "success";
+        }
+        return "wrongpassword";
+    }
+
+    @PostMapping("register")
+    public String register(@RequestBody User user){
+        User user1 = userService.findByUsername(user.getUsername());
+        if(user1 != null){
+            return "nameExists";
+        }
+        else{
+            userService.insertUser(user);
+            if(userService.findByUsername(user.getUsername()) != null){
+                return "success";
+            }
+            else{
+                userService.deleteUser(user);
+                return "error";
+            }
+        }
+    }
+}
+package model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity
+@Data
+public class User {
+    @Id
+    private String username;
+    private String password;
+
+}
+package repository;
+
+import model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+    public User findByUsername(String username);
+}
+package security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import util.JWTUtil;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final JWTUtil jwtUtil;
+    public SecurityConfig(JWTUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and();
+        return http.build();
+    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
+    }
+
+    @Bean
+    public AuthenticationTokenFilter authenticationTokenFilterBean() {
+        return new AuthenticationTokenFilter(jwtUtil);
+    }
+}
+package service;
+
+import jakarta.annotation.Resource;
+import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import repository.UserRepository;
+
+@Service
+public class JpaUserServiceImpl {
+    @Resource
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
+    public User insertUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(User user){
+        userRepository.delete(user);
+    }
+}
+package service;
+
+import model.User;
+
+public interface JpaUserService {
+    User findByUsername(String username);
+    User insertUser(User user);
+    User updateUser(User user);
+    void deleteUser(User user);
+}
+package util;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+import java.util.function.Function;
+
+@Component
+public class JWTUtil {
+    private String secretKey = "your-secret-key";
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    }
+
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        return Jwts.builder().setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours validity
+                .signWith(SignatureAlgorithm.HS256, secretKey).compact();
+    }
+
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+}

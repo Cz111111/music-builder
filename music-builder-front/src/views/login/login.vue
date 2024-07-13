@@ -78,7 +78,7 @@ const handleSubmit = async() => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header class="header">Header</el-header>
+      <el-header class="header"></el-header>
       <el-main class="main">
         <div class="register-container">
         <div class="title">登录</div>
@@ -136,7 +136,7 @@ const handleSubmit = async() => {
 
 .header{
     height: 40px;
-    background-color:#ffffff;
+    background-color:#000000;
 }
 
 
@@ -157,6 +157,12 @@ const handleSubmit = async() => {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover; */
+        /* ...其他样式保持不变... */
+    background-image: url('../../assets/login.png'); /* 替换为你的图片路径 */
+    background-repeat: no-repeat; /* 背景图像不重复 */
+    background-attachment: fixed; /* 背景图像固定，不随滚动条滚动 */
+    background-size: cover; /* 背景图像覆盖整个元素 */
+    background-position: center; /* 背景图像居中显示 */
     
 }
 

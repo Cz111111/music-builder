@@ -134,6 +134,9 @@ const groupedArray = computed(() => {
   height: 100vh;
   border-right:none;
 }
+.el-aside{
+  background-color:rgb(40, 39, 39);
+}
 </style>
 
 

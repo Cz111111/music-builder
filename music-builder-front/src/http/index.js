@@ -8,8 +8,7 @@ export const http = axios.create({
     baseURL ,
     timeout : 5000,
     headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
+    'Accept': 'application/json'
     },
   });
 
@@ -27,19 +26,7 @@ export const post = (url,data) => {
       
     });
 };
-/* export const headerPost = (url,headers,data) => {
-  http.post(url,headers,data)
-    .then(function (response) {
-      const data = response.data;
-      console.log(data);
-    })
-    .catch(function (error) {
-      console.log("error");
-    })
-    .finally(function () {
-      
-    });
-}; */
+
 
 export const get = (url,data) => {
   http.get(url,data)
