@@ -38,12 +38,15 @@ public class SongController {
     }
 
     @PostMapping("/update")
-    public R updateSong(@RequestBody Song song){
-        Song song1 = jpaSongService.updateSong(song);
-        if(song1 != null){
-            return R.ok().message("更新歌曲成功");
+    public R updateSong(@RequestParam("songname") String songname,@RequestParam("songword") String songword,@RequestParam("originName") String oriName){
+        Song song = jpaSongService.findBySongname(oriName);
+        if(song == null){
+            return R.error().message("音乐不存在");
         }
-        return R.error().message("更新歌曲失败");
+        Song song1 = new Song(song.getUsername(),songname,songword,song.getAddress());
+        jpaSongService.deleteSong(song);
+        jpaSongService.insertSong(song1);
+        return R.ok().message("更新歌曲成功");
     }
 
     @PostMapping("/download")

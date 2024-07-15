@@ -16,6 +16,7 @@ const empty = ref([]);
 
     // 定义获取对象列表的函数
 const fetchObjectList = async () => {
+    console.log("13321232132")
     try {
         const response = await http.post('/song/getUserSongs',
     {
@@ -45,7 +46,7 @@ const parentKey = ref(0);
 function handleRefresh() {
   // 这里可以执行需要重新挂载的逻辑
   // 例如，重新获取数据或重置状态
-  songList.value = empty;
+  songList.value = empty.value;
   fetchObjectList()
   console.log('父组件被重新挂载');
   // 触发重新创建父组件

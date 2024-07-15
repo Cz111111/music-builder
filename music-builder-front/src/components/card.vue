@@ -1,9 +1,25 @@
 <script setup>
-import { defineProps,defineEmits} from 'vue';
+import { defineProps,defineEmits,ref} from 'vue';
 import {http} from '../http/index.js'
 const props =  defineProps(['item']);
 const emit = defineEmits(['refreshParent']);
+const dialogVisible = ref(false); // 控制弹窗显示的响应式引用
 
+const form = ref({
+songword: props.item.songword,
+songname: props.item.songname
+});
+const originName = ref({
+  songname:props.item.songname
+})
+function openDialog() {
+  dialogVisible.value = true; // 打开弹窗
+}
+
+function confirmAction() {
+  // 这里可以放置点击确定后需要执行的逻辑
+  dialogVisible.value = false; // 关闭弹窗
+}
 
 const handleDownload = async () => {
   let formData = new FormData();
@@ -39,9 +55,43 @@ const handleDownload = async () => {
 
 }
 
-function handleUpdate() {
-  // 使用Vue Router进行跳转
-  
+const handleUpdate = async () => {
+  console.log(form.value)
+  if (!form.value.songname) {
+    alert('歌曲名不能为空')
+    return
+  }
+  let formData = new FormData();
+    
+    formData.append('songname', form.value.songname);
+    formData.append('songword', form.value.songword);
+    formData.append('originName', originName.value.songname);
+  try {
+    const response = await http.post('/song/update', 
+    formData,{
+      headers:{
+        'Authorization':localStorage.getItem("tokenTest")
+      }
+    }
+    )
+    alert(response.data.message)
+    if (response.data.success) {
+      console.log('提交成功');
+      // 这里可以添加提交成功后的逻辑，例如跳转到另一个页面
+      originName.value = form.value.songname;
+      emit('refreshParent');
+    } else {
+      console.log('提交失败');
+    }
+  } catch (error) {
+    console.error('提交失败:', error)
+  }
+
+  // 清空表单
+  form.value = {
+    songname: '',
+    songword: ''
+  }
 }
 
 const handleDelete= async () => {
@@ -114,12 +164,26 @@ const handleDelete= async () => {
         </div>
         <div class="button">
           <el-button round @click="handleDownload">导出</el-button>
-          <el-button round @click="handleUpdate">编辑</el-button>
+          <el-button round @click="openDialog">编辑</el-button>
           <el-button round @click="handleDelete">删除</el-button>
         </div>
       </div>
       </template>
+  <el-dialog v-model="dialogVisible" title="修改音乐信息" width="500">
+        <el-form :model="form" @submit.prevent="handleUpdate">
+          <el-form-item label="歌词:" :label-width="formLabelWidth">
+            <el-input v-model="form.songword" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="歌名" :label-width="formLabelWidth">
+            <el-input v-model="form.songname" autocomplete="off" />
+          </el-form-item>
+          <button type="submit">确定</button>
+        </el-form>
+        <template #footer>
+        </template>
+      </el-dialog>
   </el-card>
+
 </template>
 
 
