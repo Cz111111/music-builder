@@ -1,7 +1,9 @@
 <script setup>
-import { defineProps} from 'vue';
+import { defineProps,defineEmits} from 'vue';
 import {http} from '../http/index.js'
 const props =  defineProps(['item']);
+const emit = defineEmits(['refreshParent']);
+
 
 const handleDownload = async () => {
   let formData = new FormData();
@@ -42,8 +44,29 @@ function handleUpdate() {
   
 }
 
-function handleDelete() {
-  // 使用Vue Router进行跳转
+const handleDelete= async () => {
+  let formData = new FormData();
+  formData.append('songname', props.item.songname );
+  try {
+    const response = await http.post('/song/delete', 
+    formData,{
+      headers:{
+        'Content-Type': 'multipart/form-data',
+        'Authorization':localStorage.getItem("tokenTest")
+      }
+    }
+    )
+    alert(response.data.message)
+    if (response.data.success) {
+      console.log('提交成功123');
+      emit('refreshParent');
+      // 这里可以添加提交成功后的逻辑，例如跳转到另一个页面
+    } else {
+      console.log('提交失败');
+    }
+  } catch (error) {
+    console.error('提交失败:', error)
+  }
   
 }
 </script>

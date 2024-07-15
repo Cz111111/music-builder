@@ -64,10 +64,11 @@ public class SongController {
     }
 
     @PostMapping("/delete")
-    public R deleteSong(@RequestBody Song song){
+    public R deleteSong(@RequestParam("songname") String songname){
+        Song song=jpaSongService.findBySongname(songname);
         jpaSongService.deleteSong(song);
         Song song1 = jpaSongService.findSong(song);
-        if(song1 != null){
+        if(song1 == null){
             return R.ok().message("删除歌曲成功");
         }
         return R.error().message("删除歌曲失败");

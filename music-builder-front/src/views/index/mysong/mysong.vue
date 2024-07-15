@@ -12,6 +12,7 @@ const router = useRouter()
 const usernameScore = useUsername()
 
 const songList = ref([]);
+const empty = ref([]);
 
     // 定义获取对象列表的函数
 const fetchObjectList = async () => {
@@ -40,7 +41,16 @@ const fetchObjectList = async () => {
 };
     // 组件挂载时获取数据
 onMounted( fetchObjectList);
-
+const parentKey = ref(0);
+function handleRefresh() {
+  // 这里可以执行需要重新挂载的逻辑
+  // 例如，重新获取数据或重置状态
+  songList.value = empty;
+  fetchObjectList()
+  console.log('父组件被重新挂载');
+  // 触发重新创建父组件
+  parentKey.value += 1;
+}
 
 const groupedArray = computed(() => {
   const groups = [];
@@ -75,8 +85,8 @@ const groupedArray = computed(() => {
             <el-row :gutter="12"  class="row-box">
             <!-- 遍历组内的每个元素 -->
               <div v-for="item in group" :key="item.id || item">
-                  <el-col  :span="24">
-                    <card :item = "item"></card>
+                  <el-col  :span="24" v-bind:key="parentKey">
+                    <card :item = "item"  @refresh-parent="handleRefresh"></card>
                   </el-col>
               </div>
             <!-- 可以添加一些分隔符或样式，以区分不同的组 -->
