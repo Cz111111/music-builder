@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SingScore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c19d3ffb14dcef76d60ec167b4999e593d5ea65f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9db3a52fe41ae3f200b8da212196518b6788df36")]
 [assembly: System.Reflection.AssemblyProductAttribute("SingScore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SingScore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

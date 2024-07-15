@@ -1,0 +1,8 @@
+<!-- index.html -->
+<button id="go-to-another-component">跳转到另一个组件</button>
+
+<script>
+  document.getElementById('go-to-another-component').addEventListener('click', function() {
+    window.app.$router.push('/another-component');
+  });
+</script>

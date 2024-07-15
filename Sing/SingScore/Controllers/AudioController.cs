@@ -15,6 +15,7 @@ namespace SingScore
             this.audioService = audioService;
         }
 
+        //上传文件，并调用模型进行分离
         [HttpPost("uploadfile")]
         public async Task<IActionResult> UploadFile([FromBody] FileDTO file)
         {
@@ -24,18 +25,13 @@ namespace SingScore
             {
                 return BadRequest("No file uploaded.");
             }
-
             //对上传的文件为音频文件进行判断
             string fileExtension = Path.GetExtension(audioFile);
-
             // 检查文件扩展名是否为 .mp3 或 .wav
             if (fileExtension != ".mp3" && fileExtension != ".wav")
             {
                 return BadRequest("Only MP3 or WAV files are allowed.");
             }
-
-
-
             //将上传的文件给存储到数据库中去
             if (!string.IsNullOrWhiteSpace(audioFile))
             {
@@ -48,8 +44,8 @@ namespace SingScore
                 Audio newAudio = new Audio(maxNum, title, filePath);
 
                 // 调用 AudioService 的方法将新音频对象添加到数据库
-                
-                if(!audioService.AddAudio(newAudio))
+
+                if (!audioService.AddAudio(newAudio))
                 {
                     return BadRequest("已经存在");
                 }
@@ -63,10 +59,9 @@ namespace SingScore
             {
                 return BadRequest("文件不存在");
             }
-
-
         }
 
+        //进行FFT分析得到k歌的主要频率
         [HttpGet("draw")]
         public async Task<ActionResult<List<float>>> GetFrequencyData(string filepath)
         {
