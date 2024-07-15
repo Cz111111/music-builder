@@ -6,7 +6,6 @@ import { useUsername } from '../../../stores/username.js'
 import {http} from '../../../http'
 import asideMenu from "../../../components/menu.vue";
 import userDropdown from "../../../components/dropdown.vue";
-import scroll from "../../../components/scrollbox.vue";
 import card from "../../../components/card.vue"
 const router = useRouter()
 

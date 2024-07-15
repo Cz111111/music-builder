@@ -22,6 +22,11 @@ public class JpaSongServiceImpl implements JpaSongService {
         return null;
     }
 
+    @Override
+    public Song findBySongname(String songname) {
+        return songRepository.findBySongname(songname);
+    }
+
     public Song findSong(Song song){
         return songRepository.findByUsernameAndSongnameAndSongwordAndAddress(song.getUsername(),song.getSongname(),song.getSongword(),song.getAddress());
     }

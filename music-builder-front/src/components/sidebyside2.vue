@@ -18,6 +18,9 @@
           <el-form-item label="WAV 文件" :label-width="formLabelWidth">
             <input input type="file" id="wavname" @change="handleWavChange" />
           </el-form-item>
+          <el-form-item label="生成文件名:" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off" />
+          </el-form-item>
           <button type="submit">确定</button>
         </el-form>
         <template #footer>
@@ -34,7 +37,8 @@
   const dialogVisible = ref(false); // 控制弹窗显示的响应式引用
 
   const form = ref({
-  wavname: null
+  wavname: null,
+  name:''
 });
 
 
@@ -58,18 +62,20 @@ function confirmAction() {
 
 const handleSubmit = async () => {
   console.log(form.value)
-  if (!form.value.wavname) {
+  if (!form.value.wavname||!form.value.name) {
     alert('请填写完整数据')
     return
   }
   console.log(form.value)
   let formData = new FormData();
     formData.append('wavname', form.value.wavname);
+    formData.append('name', form.value.name);
   try {
-    const response = await http.post('render/submit', 
+    const response = await http.post('render/two', 
     formData,{
       headers:{
-        'Authorization':tokenScore.token
+        'Content-Type': 'multipart/form-data',
+        'Authorization':localStorage.getItem("tokenTest")
       }
     }
     )
@@ -86,7 +92,8 @@ const handleSubmit = async () => {
 
   // 清空表单
   form.value = {
-    wavname: null
+    wavname: null,
+    name:null
   }
 }
   </script>

@@ -6,8 +6,13 @@ import com.example.demo.model.Song;
 import com.example.demo.repository.SongRepository;
 import com.example.demo.service.JpaSongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -39,6 +44,23 @@ public class SongController {
             return R.ok().message("更新歌曲成功");
         }
         return R.error().message("更新歌曲失败");
+    }
+
+    @PostMapping("/download")
+    public ResponseEntity<FileSystemResource> downloadSong(@RequestParam("songname") String songname) {
+        // 指定文件路径
+        Song song=jpaSongService.findBySongname(songname);
+        String path = song.getAddress();
+        String filePath = path;
+        File file = new File(filePath).getAbsoluteFile();
+        if (!file.exists()) {
+            // 如果文件不存在，返回错误信息
+            return ResponseEntity.notFound().build();
+        }
+        FileSystemResource resource = new FileSystemResource(file);
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=" + resource.getFilename())
+                .body(resource);
     }
 
     @PostMapping("/delete")

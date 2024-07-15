@@ -53,7 +53,7 @@ const handleSubmit = async() => {
             token:response.data.token
         }; */
  //       state.setUser(user);
-        router.push({ name: 'index' })
+        router.push({ name: 'createsong' })
     } else {
    //     closeToast();
         console.log('用户名或密码错误')
@@ -78,7 +78,7 @@ const handleSubmit = async() => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header class="header"></el-header>
+<!--       <el-header class="header"></el-header> -->
       <el-main class="main">
         <div class="register-container">
         <div class="title">登录</div>

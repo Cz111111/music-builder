@@ -1,7 +1,7 @@
 <template>
     <el-dropdown>
       <span class="el-dropdown-link">
-        用户名
+        {{ usernameScore.username }}
         <el-icon class="el-icon--right">
           <arrow-down />
         </el-icon>
@@ -20,6 +20,9 @@
   
   <script lang="ts" setup>
   import { ArrowDown } from '@element-plus/icons-vue'
+import { useUsername } from '../stores/username.js'
+const usernameScore = useUsername()
+
   </script>
   <style scoped>
   .el-dropdown-link {

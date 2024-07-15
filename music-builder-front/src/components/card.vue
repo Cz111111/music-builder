@@ -1,6 +1,51 @@
 <script setup>
-import { defineProps } from 'vue';
-defineProps(['item']);
+import { defineProps} from 'vue';
+import {http} from '../http/index.js'
+const props =  defineProps(['item']);
+
+const handleDownload = async () => {
+  let formData = new FormData();
+  formData.append('songname', props.item.songname );
+
+  try {
+    // 发送POST请求并设置响应类型为blob
+    const response = await http.post('/song/download', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': localStorage.getItem("tokenTest")
+      },
+      responseType: 'blob' // 重要：设置响应类型为blob以处理二进制文件数据
+    });
+
+
+    // 创建一个可下载的链接
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', props.item.songname); // 设置下载文件的名称
+    document.body.appendChild(link); // 将链接添加到DOM中
+    link.click(); // 模拟点击事件开始下载
+
+    // 清理
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+    alert('文件下载成功！');
+  } catch (error) {
+    console.error('下载失败:', error);
+    alert('下载失败，请稍后重试或联系管理员！');
+  }
+
+}
+
+function handleUpdate() {
+  // 使用Vue Router进行跳转
+  
+}
+
+function handleDelete() {
+  // 使用Vue Router进行跳转
+  
+}
 </script>
 
 
@@ -45,9 +90,9 @@ defineProps(['item']);
           <span>{{ item.songname }}</span>
         </div>
         <div class="button">
-          <el-button round>导出</el-button>
-          <el-button round>编辑()</el-button>
-          <el-button round>删除()</el-button>
+          <el-button round @click="handleDownload">导出</el-button>
+          <el-button round @click="handleUpdate">编辑</el-button>
+          <el-button round @click="handleDelete">删除</el-button>
         </div>
       </div>
       </template>

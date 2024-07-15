@@ -9,6 +9,7 @@ import java.util.List;
 public interface SongRepository extends JpaRepository<Song, Integer> {
     List<Song> findAll();
 
+    Song findBySongname(String songname);
     @Query("select s from Song s where s.username=?1")
     public List<Song> findByUsername(String username);
     public Song findByUsernameAndSongnameAndSongwordAndAddress(String username,String songname,String songword,String address);

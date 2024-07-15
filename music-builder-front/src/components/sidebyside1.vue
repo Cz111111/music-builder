@@ -16,7 +16,7 @@
       <el-dialog v-model="dialogVisible" title="AI清唱音乐合成" width="500">
         <el-form :model="form" @submit.prevent="handleSubmit">
           <el-form-item label="歌词:" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off" />
+            <el-input v-model="form.songword" autocomplete="off" />
           </el-form-item>
           <el-form-item label="歌手名:" :label-width="formLabelWidth">
             <el-select v-model="form.region" placeholder="Please select a zone">
@@ -51,7 +51,7 @@
   const dialogVisible = ref(false); // 控制弹窗显示的响应式引用
 
   const form = ref({
-  name: '',
+  songword: '',
   region: null,
   midi: null,
   wavname: '',
@@ -76,20 +76,20 @@ function confirmAction() {
 
 const handleSubmit = async () => {
   console.log(form.value)
-  if (!form.value.midi || !form.value.name || !form.value.region || !form.value.wavname) {
+  if (!form.value.midi || !form.value.songword || !form.value.region || !form.value.wavname) {
     alert('请填写完整数据')
     return
   }
   let formData = new FormData();
-    formData.append('name', form.value.name);
+    formData.append('songword', form.value.songword);
     formData.append('region', form.value.region);
     formData.append('midi', form.value.midi);
     formData.append('wavname', form.value.wavname);
   try {
-    const response = await http.post('render/submit', 
+    const response = await http.post('render/one', 
     formData,{
       headers:{
-        'Authorization':tokenScore.token
+        'Authorization':localStorage.getItem("tokenTest")
       }
     }
     )
@@ -108,7 +108,7 @@ const handleSubmit = async () => {
   form.value = {
     midi: null,
     region: null,
-    name: '',
+    songword: '',
     wavname: ''
   }
 }
