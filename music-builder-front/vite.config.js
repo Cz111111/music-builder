@@ -18,12 +18,21 @@ export default defineConfig({
   ,
   server:{
     proxy:{
+      '/api/ksong': {
+        // 目标是后端服务器地址
+        target: 'https://127.0.0.1:7129',
+        // 重写请求路径，去掉 /api 前缀
+        
+        changeOrigin: true, // 改变原始请求的origin头为 target URL 的域名
+        secure: false, // 如果是https的代理，需要设置secure为true
+      },
       '/api':{
           target:'http://localhost:8080',
           changeOrigin:true,
           secure:false,
           rewrite:(path)=>path.replace(/^\/api/,'')
       }
+ 
     }
   }
 })

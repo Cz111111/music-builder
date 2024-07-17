@@ -39,6 +39,21 @@ const routes=[
   component: () => import("../views/render/render.vue"),
   // meta: { requiresAuth: true },
 },
+{
+  path: "/",
+  name: "upload",
+  component: () => import("../pages/upload.vue"),
+},
+{
+  path: "/upload",
+  name: "upload",
+  component: () => import("../pages/upload.vue"),
+},
+{
+  path: "/kmain",
+  name: "kmain",
+  component: () => import("../pages/kmain.vue"),
+},
 ];
 
 const router= createRouter(

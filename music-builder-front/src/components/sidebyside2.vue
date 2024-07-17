@@ -76,7 +76,8 @@ const handleSubmit = async () => {
       headers:{
         'Content-Type': 'multipart/form-data',
         'Authorization':localStorage.getItem("tokenTest")
-      }
+      },
+      timeout:900000
     }
     )
     alert(response.data.message)

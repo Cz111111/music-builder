@@ -12,7 +12,27 @@ export const http = axios.create({
     },
   });
 
-  
+  export const filehttp = axios.create({
+    baseURL ,
+    timeout : 80000,
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'multipart/form-data'
+    },
+  });
+
+export const filepost=(url,data)=>{
+  filehttp.post(url,data)
+  .then(function (response) {
+    const data = response.data;
+    console.log(data);
+  })
+  .catch(function (error) {
+    console.log("error");
+  })
+  .finally(function () {
+  });
+};
 export const post = (url,data) => {
   http.post(url,data)
     .then(function (response) {

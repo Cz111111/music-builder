@@ -31,19 +31,19 @@ const handleClose = (key, keyPath) => {
         :router="true"
       >
         <el-menu-item index="/index" class = "menu1">
-            <span>这是logo</span>
+          <img :src="'/src/assets/logo.jpg'" />
             </el-menu-item>
         <el-menu-item index="/index/createsong" class = "menu2">
             <el-icon><icon-menu /></el-icon>
             <span>AI创作</span>
         </el-menu-item>
-        <el-menu-item index="3" class = "menu3">
+        <el-menu-item index="../../upload" class = "menu3">
           <el-icon><Mic /></el-icon>
-          <span>歌唱评分</span>
+          <span>K歌评分</span>
         </el-menu-item>
         <el-menu-item index="4" class = "menu4">
           <el-icon><Document /></el-icon>
-          <span>我的草稿</span>
+          <span>音乐创作</span>
         </el-menu-item>
         <el-menu-item index="/index/mysong" class = "menu5">
           <el-icon><Headset /></el-icon>
@@ -61,11 +61,18 @@ const handleClose = (key, keyPath) => {
 </template>
 
 <style scoped>
+img {
+  max-width: 100%; /* 图片最大宽度不超过其父容器的宽度 */
+  max-height: 100%; /* 图片最大高度不超过其父容器的高度 */
+}
 .col{
   padding: 0px;
+  padding-right: 20px;
 }
 .menu1{
   height:100px;
+  padding: 0px;
+  margin-left: 0%;
 }
 .menu2{
   height:100px;
@@ -86,5 +93,6 @@ const handleClose = (key, keyPath) => {
     background-color:rgb(40, 39, 39);
     height: 100vh;
     border-right:none;
+    
   }
 </style>

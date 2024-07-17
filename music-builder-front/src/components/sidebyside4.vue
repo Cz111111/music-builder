@@ -17,8 +17,8 @@
         <el-form :model="form" @submit.prevent="handleSubmit">
           <el-form-item label="乐器:" :label-width="formLabelWidth">
             <el-select v-model="form.instrument" placeholder="Please select a zone">
-              <el-option label="原声大钢琴" value="Acoustic Grand" />
-              <el-option label="管弦乐打击" value="Orchestra Hit" />
+              <el-option label="中提琴" value="Viola" />
+              <el-option label="直升机" value="Helicopter" />
             </el-select>
           </el-form-item>
           <el-form-item label="生成文件名:" :label-width="formLabelWidth">

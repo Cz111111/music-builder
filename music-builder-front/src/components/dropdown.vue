@@ -36,7 +36,7 @@ const usernameScore = useUsername()
   .el-dropdown{
  /*   min-width: 100%;*/
     height: 40px;
-    left:93%;
+    left:90%;
     top:30%;
     
   }
