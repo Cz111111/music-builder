@@ -1,26 +1,26 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { ref } from 'vue'
-import {http} from '../../http'
-import {useTokenScore} from '../../stores/token.js'
-import {useUsername} from '../../stores/username.js'
+import { http } from '../../http'
+import { useTokenScore } from '../../stores/token.js'
+import { useUsername } from '../../stores/username.js'
 
-const tokenScore=useTokenScore()
-const usernameScore=useUsername()
+const tokenScore = useTokenScore()
+const usernameScore = useUsername()
 const router = useRouter()
-const toRegister=()=>{
+const toRegister = () => {
     router.push({ name: 'register' });
 }
 
-const loginForm=ref({
+const loginForm = ref({
     username: '',
     password: ''
 })
 
 
-const handleSubmit = async() => {
+const handleSubmit = async () => {
     if (!loginForm.value.username
-    ||!loginForm.value.password ) {
+        || !loginForm.value.password) {
         alert('请填写完整数据')
         return
     }
@@ -29,114 +29,119 @@ const handleSubmit = async() => {
     // 模拟提交数据
     console.log('提交的登录信息:', loginForm.value)
 
-    
+
 
     try {
- //       showLoadingToast({
-  //        message: '登陆中...',
-  //      });
-    const response = await http.post('/user/login', {
-      username: loginForm.value.username,
-      password: loginForm.value.password
-    })
-     alert(response.data.message)
-    localStorage.setItem("tokenTest",response.data.data.token)
+        //       showLoadingToast({
+        //        message: '登陆中...',
+        //      });
+        const response = await http.post('/user/login', {
+            username: loginForm.value.username,
+            password: loginForm.value.password
+        })
+        alert(response.data.message)
+        localStorage.setItem("tokenTest", response.data.data.token)
 
-    if (response.data.success) {
- //       closeToast();
-        console.log('登录成功');
-        tokenScore.setToken(response.data.data.token)
-        usernameScore.setUsername(loginForm.value.username)
-/*         const user = {
-            userId: loginForm.value.username,
-            password: loginForm.value.password,
-            token:response.data.token
-        }; */
- //       state.setUser(user);
-        router.push({ name: 'createsong' })
-    } else {
-   //     closeToast();
-        console.log('用户名或密码错误')
-    }
+        if (response.data.success) {
+            //       closeToast();
+            console.log('登录成功');
+            tokenScore.setToken(response.data.data.token)
+            usernameScore.setUsername(loginForm.value.username)
+            /*         const user = {
+                        userId: loginForm.value.username,
+                        password: loginForm.value.password,
+                        token:response.data.token
+                    }; */
+            //       state.setUser(user);
+            router.push({ name: 'createsong' })
+        } else {
+            //     closeToast();
+            console.log('用户名或密码错误')
+        }
     } catch (error) {
-   //     closeToast();
+        //     closeToast();
         console.log('登录失败，请稍后重试')
         console.error(error)
     }
- //   tokenScore.removeToken()
+    //   tokenScore.removeToken()
     loginForm.value = {// 清空表单
         username: '',
         password: ''
     }
 }
-    
-   
+
+
 
 
 </script>
 
 <template>
-  <div class="common-layout">
-    <el-container>
-<!--       <el-header class="header"></el-header> -->
-      <el-main class="main">
+    <!-- <div class="common-layout">
+    <el-container> -->
+    <!--       <el-header class="header"></el-header> -->
+    <div class="main">
         <div class="register-container">
-        <div class="title">登录</div>
-        <div class="rd">
-            <form id="registerForm" @submit.prevent="handleSubmit">
-                <div class="form-group">
-                    <label for="username">账号</label>
-                    <div class="input">
-                        <div class="icons"><el-icon :size="17"><User style="color: #7c7c7c;"/></el-icon></div>
-                        <input type="text" id="username" name="username" placeholder="请输入账号" v-model="loginForm.username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password">密码</label>
-                    <div class="input">
-                        <div class="icons"><el-icon :size="17"><Lock style="color: #7c7c7c;" /></el-icon></div>
-                        <input type="password" id="password" name="password" placeholder="请输入密码" v-model="loginForm.password">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="text" >忘记密码？</div>
-                </div>
-                
-                
-                <button type="submit" class="submit">登录</button>
-                <div class="form-group">
-                    <div class="form-group-item">
-                        <div class="topinfo">第三方登录</div>
-                        <div class="coreinfo">
-                            <img src="../../assets/wechaticon.png"/>
-                            <img src="../../assets/qqicon.png"/>
-                            <img src="../../assets/githubicon.png"/>
+            <div class="title">登录</div>
+            <div class="rd">
+                <form id="registerForm" @submit.prevent="handleSubmit">
+                    <div class="form-group">
+                        <label for="username">账号</label>
+                        <div class="input">
+                            <div class="icons"><el-icon :size="17">
+                                    <User style="color: #7c7c7c;" />
+                                </el-icon></div>
+                            <input type="text" id="username" name="username" placeholder="请输入账号"
+                                v-model="loginForm.username">
                         </div>
-                        <div class="bottominfo" @click="toRegister">没有账号？立即注册</div>
                     </div>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <div class="input">
+                            <div class="icons"><el-icon :size="17">
+                                    <Lock style="color: #7c7c7c;" />
+                                </el-icon></div>
+                            <input type="password" id="password" name="password" placeholder="请输入密码"
+                                v-model="loginForm.password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="text">忘记密码？</div>
+                    </div>
+
+
+                    <button type="submit" class="submit">登录</button>
+                    <div class="form-group">
+                        <div class="form-group-item">
+                            <div class="topinfo">第三方登录</div>
+                            <div class="coreinfo">
+                                <img src="../../assets/wechaticon.png" />
+                                <img src="../../assets/qqicon.png" />
+                                <img src="../../assets/githubicon.png" />
+                            </div>
+                            <div class="bottominfo" @click="toRegister">没有账号？立即注册</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-    </el-main>
-      
-    </el-container>
-  </div>
+
+    <!-- </div> -->
 </template>
 
 <style scoped>
-.common-layout{
+.common-layout {
     height: 100%;
 }
 
-.el-container{
+.el-container {
     height: 100%;
-    
+
 }
 
-.header{
+.header {
     height: 40px;
-    background-color:#000000;
+    background-color: #000000;
 }
 
 
@@ -144,8 +149,8 @@ const handleSubmit = async() => {
 
 
 
-.main{
-    height: 700px;
+.main {
+    height: 100%;
     background-color: rgb(220, 220, 220);
     display: flex;
     justify-content: center;
@@ -157,12 +162,17 @@ const handleSubmit = async() => {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover; */
-        /* ...其他样式保持不变... */
-    background-image: url('../../assets/login.png'); /* 替换为你的图片路径 */
-    background-repeat: no-repeat; /* 背景图像不重复 */
-    background-attachment: fixed; /* 背景图像固定，不随滚动条滚动 */
-    background-size: cover; /* 背景图像覆盖整个元素 */
-    background-position: center; /* 背景图像居中显示 */
+    /* ...其他样式保持不变... */
+    background-image: url('../../assets/login.png');
+    /* 替换为你的图片路径 */
+    background-repeat: no-repeat;
+    /* 背景图像不重复 */
+    background-attachment: fixed;
+    /* 背景图像固定，不随滚动条滚动 */
+    background-size: cover;
+    /* 背景图像覆盖整个元素 */
+    background-position: center;
+    /* 背景图像居中显示 */
     
 }
 
@@ -174,8 +184,9 @@ const handleSubmit = async() => {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 350px;
-    height:500px;
+    height: 500px;
 }
+
 .title {
     margin-top: 25px;
     margin-bottom: 20px;
@@ -201,7 +212,8 @@ label {
     font-size: 12px;
     color: #6a6363;
 }
-.text{
+
+.text {
     text-align: end;
     font-weight: 550;
     font-size: 12px;
@@ -209,22 +221,24 @@ label {
     position: relative;
     bottom: 22px;
 }
-.input{
+
+.input {
     display: flex;
     border-bottom: 1.5px solid #a9a9a9;
 }
 
-.icons{
+.icons {
     margin-right: 10px;
     height: 40px;
     width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
-#username, #password {
+#username,
+#password {
     width: 100%;
     height: 40px;
     padding: 5px;
@@ -247,10 +261,10 @@ button {
     width: 90%;
     height: 35px;
     font-size: 15px;
-    
+
 }
 
-.form-group-item{
+.form-group-item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -259,21 +273,21 @@ button {
 
 .topinfo,
 .coreinfo,
-.bottominfo{
+.bottominfo {
     height: 32px;
-    line-height:32px;
+    line-height: 32px;
     text-align: center;
     font-weight: 550;
     font-size: 12px;
     color: #6a6363;
 }
 
-.bottominfo{
+.bottominfo {
     text-decoration: underline;
     cursor: pointer;
 }
 
-.coreinfo{
+.coreinfo {
     display: flex;
     justify-content: space-between;
     gap: 8px;
@@ -281,8 +295,7 @@ button {
     margin-bottom: 10px;
 }
 
-img{
+img {
     cursor: pointer;
 }
-
 </style>

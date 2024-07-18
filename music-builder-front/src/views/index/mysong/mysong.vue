@@ -66,7 +66,7 @@ const groupedArray = computed(() => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="120px">
+      <el-aside width="150px">
         <asideMenu></asideMenu>
       </el-aside>
       <el-container>
@@ -105,6 +105,13 @@ const groupedArray = computed(() => {
 </template>
 
 <style scoped>
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+}
 .head{
     top:40px;
     left:20%;
@@ -113,6 +120,7 @@ const groupedArray = computed(() => {
   background-color:rgba(19, 15, 15, 0.977);
   border-left:none;
   color:white;
+  border-bottom: 1px solid #ccc;
 }
 .main{
   background-color:rgba(19, 15, 15, 0.977);

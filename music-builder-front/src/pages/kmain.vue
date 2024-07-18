@@ -393,7 +393,7 @@ const stopRecording = () => {
   /* 左上角的透明边框 */
   border-bottom: 10px solid transparent;
   /* 右下角的透明边框 */
-  border-left: 15px solid white;
+  border-left: 15px solid rgb(0, 0, 0);
   /* 改变这里来创建向右的箭头 */
   position: absolute;
   top: 100%;
@@ -450,11 +450,15 @@ a {
 }
 
 .black-card {
-  background-color: rgb(49, 46, 46);
+  background-color: rgb(255, 255, 255);
   color: white;
   /* 设置文字颜色为白色，以提高可读性 */
 }
-
+#app {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
 .kmain-container {
   display: flex;
   flex-direction: column;
@@ -462,6 +466,10 @@ a {
   width: 1000px;
   overflow: hidden;
   /* 防止内容溢出 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .top-nav {
@@ -483,10 +491,11 @@ a {
   /* 垂直滚动 */
   padding: 10px;
   /* 内边距 */
-  border: 1px solid white;
+  border: 1px solid black;
   /* 白色边框 */
   border-radius: 8px;
   /* 添加圆角边框，8px是圆角的半径大小，可以根据需要调整 */
+  text-align: center;
   width: 800px;
   margin-left: auto;
   margin-right: auto;

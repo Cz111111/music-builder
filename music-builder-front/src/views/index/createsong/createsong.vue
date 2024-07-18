@@ -21,75 +21,89 @@ import sidebyside5 from "../../../components/sidebyside5.vue";
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="120px">
+      <el-aside width="150px">
         <asideMenu></asideMenu>
       </el-aside>
       <el-container>
-        <el-header class = "header">
-            <el-row>
-                <el-col :span="4" class = "head">
-                    <h2>AI创作</h2>
-                </el-col>
-                <el-col :span="20">
-                    <userDropdown></userDropdown>
-                </el-col>
-            </el-row>
-          
+        <el-header class="header">
+          <el-row>
+            <el-col :span="4" class="head">
+              <h2>AI创作</h2>
+            </el-col>
+            <el-col :span="20">
+              <userDropdown></userDropdown>
+            </el-col>
+          </el-row>
         </el-header>
-        <el-main class = "main">
-          <el-row :gutter="12"  class="row-box"> 
-              <sidebyside1/>
-          </el-row>
-          <el-row :gutter="12"  class="row-box"> 
-              <sidebyside2/>
-          </el-row>
-          <el-row :gutter="12"  class="row-box"> 
-              <sidebyside3/>
-          </el-row>
-          <el-row :gutter="12"  class="row-box"> 
-              <sidebyside4/>
-          </el-row>
-          <el-row :gutter="12"  class="row-box"> 
-              <sidebyside5/>
-          </el-row>
-        </el-main>
+        <el-main class="main">
+        <ul>
+          <li style="list-style-type: none;">
+            <sidebyside1 />
+          </li>
+          <li style="list-style-type: none;">
+            <sidebyside2 />
+          </li>
+          <li style="list-style-type: none;">
+            <sidebyside3 />
+          </li>
+          <li style="list-style-type: none;">
+            <sidebyside4 />
+          </li>
+          <li style="list-style-type: none;">
+            <sidebyside5 />
+          </li>
+        </ul>
+      </el-main>
       </el-container>
+
+
     </el-container>
   </div>
 </template>
 
 <style scoped>
-.head{
-    top:40px;
-    left:20%;
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
 }
-.header{
-  background-color:rgba(19, 15, 15, 0.977);
-  border-left:none;
-  color:white;
-}
-.main{
-  background-color:rgba(19, 15, 15, 0.977);
-  border-left: none;
-  color:azure;
-}
-.el-row{
-    margin-bottom: 20px;
-}
-.row-box {
 
+.head {
+  top: 40px;
+  left: 20%;
+}
+
+.header {
+  background-color: rgba(19, 15, 15, 0.977);
+  border-left: none;
+  color: white;
+  border-bottom: 1px solid #ccc;
+  /* 添加底部边框 */
+}
+
+.main {
+  background-color: rgba(19, 15, 15, 0.977);
+  border-left: none;
+  color: azure;
+}
+
+.el-row {
+  margin-bottom: 20px;
+}
+
+.row-box {
   display: flex;
   flex-flow: wrap;
 }
 
-
-.aside-menu{
+.aside-menu {
   height: 100vh;
-  border-right:none;
+  border-right: none;
 }
-.el-aside{
-  background-color:rgb(40, 39, 39);
+
+.el-aside {
+  background-color: rgb(40, 39, 39);
 }
 </style>
-
-

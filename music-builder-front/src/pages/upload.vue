@@ -1,15 +1,39 @@
 <template>
+    <div class="common-layout">
+    <el-container>
+      <el-aside width="150px">
+        <asideMenu></asideMenu>
+      </el-aside>
+      <el-container>
+        <el-header class="header">
+          <el-row>
+            <el-col :span="4" class="head">
+              <h2>K歌评分</h2>
+            </el-col>
+            <el-col :span="20">
+              <userDropdown></userDropdown>
+            </el-col>
+          </el-row>
+        </el-header>
+        <el-main class="main">
   <div class="form">
     <div class="file-picker">
       <input type="file" id="MusicFileInput" accept=".mp3" @change="handleFileChange" >
-      <button @click="selectmusic" style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">上传音频文件</button>
+      <button @click="selectmusic" style="background-color: #f00; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">上传音频文件</button>
     </div>
     <div class="file-picker">
       <input type="file" id="lrcFileInput" accept=".lrc">
-      <button id="uploadButton" @click="selectLrc" style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">上传歌词文件</button>
+      <button id="uploadButton" @click="selectLrc" style="background-color: #f00; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer;">上传歌词文件</button>
     </div>
     <el-button type="danger" @click="submit()">开始k歌</el-button>
   </div>
+      </el-main>
+      </el-container>
+
+
+    </el-container>
+  </div>
+
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +41,7 @@ import { ref, onMounted } from 'vue'
 import { filehttp } from '../http/index.js';
 import { useRouter } from 'vue-router';
 import { ElLoading } from 'element-plus'
+import asideMenu from "../components/menu.vue"
 
 const fullscreenLoading = ref(false)
 onMounted(() => {
@@ -87,11 +112,30 @@ const submit = async () => {
 </script>
 
 <style scoped>
+.head {
+  top: 40px;
+  left: 20%;
+}
+
+.header {
+  background-color: rgba(19, 15, 15, 0.977);
+  border-left: none;
+  color: white;
+  border-bottom: 1px solid #ccc;
+  /* 添加底部边框 */
+}
+
+.main {
+  background-color: rgba(19, 15, 15, 0.977);
+  border-left: none;
+  color: azure;
+}
 .form{
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column; /* 保持内部元素的排列方式 */
+  justify-content: center; /* 垂直方向居中 */
+  align-items: center; /* 水平方向居中 */
+  height: 100%; /* 设置父容器高度为视口高度 */
 }
 .loading-modal {
   display: none; /* 默认隐藏 */

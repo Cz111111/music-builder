@@ -15,12 +15,12 @@ const routes=[
     component: () => import("../views/register/register.vue"),
     // meta: { requiresAuth: true },
   },
-  {
-      path:"/index",
-      name:"index",
-      component: () => import("../views/index/index.vue"),
-      // meta: { requiresAuth: true },
-  },
+  // {
+  //     path:"/index",
+  //     name:"index",
+  //     component: () => import("../views/index/index.vue"),
+  //     // meta: { requiresAuth: true },
+  // },
   {
     path:"/index/createsong",
     name:"createsong",
@@ -34,15 +34,16 @@ const routes=[
   // meta: { requiresAuth: true },
 },
 {
+  path:"/index/download",
+  name:"download",
+  component: () => import("../views/index/download/download.vue"),
+  // meta: { requiresAuth: true },
+},
+{
   path:"/render",
   name:"render",
   component: () => import("../views/render/render.vue"),
   // meta: { requiresAuth: true },
-},
-{
-  path: "/",
-  name: "upload",
-  component: () => import("../pages/upload.vue"),
 },
 {
   path: "/upload",

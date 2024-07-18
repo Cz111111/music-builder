@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.R;
+import com.example.demo.model.OtherFile;
 import com.example.demo.model.Song;
 import com.example.demo.service.FileUploadService;
+import com.example.demo.service.JpaOtherFileService;
 import com.example.demo.service.JpaSongService;
 import com.example.demo.service.RenderService;
 import jakarta.servlet.ServletContext;
@@ -46,6 +48,8 @@ public class RenderController {
 
     @Autowired
     JpaSongService jpaSongService;
+    @Autowired
+    private JpaOtherFileService jpaOtherFileService;
 
 
     @PostMapping ("/one")
@@ -66,14 +70,14 @@ public class RenderController {
         ByteArrayHttpMessageConverter byteArrayConverter = new ByteArrayHttpMessageConverter();
         messageConverters.add(byteArrayConverter);
         restTemplate.setMessageConverters(messageConverters);
-        String url = "http://192.168.43.212:8888/GetBackBackControllers/render";
+        String url = "http://192.168.43.212:8887/GetBackBackControllers/render";
         String uriStr = String.format("%s?singer=%s&lyrics=%s&wavName=%s", url, region, songword, wavname);
         // 创建请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.set("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         headers.set("Accept", "application/octet-stream"); // 假设响应内容类型为二进制流
-        headers.set("Host", "localhost:8888");
+        headers.set("Host", "localhost:8887");
         headers.set("Connection", "keep-alive");
 
         // 创建请求体
@@ -135,14 +139,14 @@ public class RenderController {
         ByteArrayHttpMessageConverter byteArrayConverter = new ByteArrayHttpMessageConverter();
         messageConverters.add(byteArrayConverter);
         restTemplate.setMessageConverters(messageConverters);
-        String url = "http://192.168.43.212:8888/GetBackBackControllers/some";
+        String url = "http://192.168.43.212:8887/GetBackBackControllers/some";
 
         // 创建请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         headers.set("User-Agent", "Your User Agent");
         headers.set("Accept", "application/octet-stream"); // 假设响应内容类型为二进制流
-        headers.set("Host", "localhost:8888");
+        headers.set("Host", "localhost:8887");
         headers.set("Connection", "keep-alive");
 
         // 创建请求体
@@ -204,7 +208,7 @@ public class RenderController {
         RestTemplate restTemplate = new RestTemplate();
 
         // 使用UriComponentsBuilder构建URL
-        String url = "http://192.168.43.212:8888/GetBackBackControllers/paint";
+        String url = "http://192.168.43.212:8887/GetBackBackControllers/paint";
         URI uri = UriComponentsBuilder.fromUriString(url)
                 .queryParam("keyWord", keyword)
                 .queryParam("Pname", name)
@@ -232,13 +236,12 @@ public class RenderController {
             try (FileOutputStream fos = new FileOutputStream(outputFile)) {
                 fos.write(responseBody);
             }
-            Song song = new Song(userDetails.getUsername(),name,
-                    "这是一个图片",
+            OtherFile otherFile = new OtherFile(userDetails.getUsername(),name,
                     "uploads/"+userDetails.getUsername()+"/"+name+".png");
-            jpaSongService.insertSong(song);
-            return R.ok().message("图片保存成功");
+            jpaOtherFileService.insertFile(otherFile);
+            return R.ok().message("图片生成成功");
         } else {
-            return R.error().message("请求失败，状态码：" + response.getStatusCode());
+            return R.error().message("生成失败");
         }
     }
 
@@ -251,7 +254,7 @@ public class RenderController {
         RestTemplate restTemplate = new RestTemplate();
 
         // 使用UriComponentsBuilder构建URL
-        String url = "http://192.168.43.212:8888/GetBackBackControllers/arrange";
+        String url = "http://192.168.43.212:8887/GetBackBackControllers/arrange";
         URI uri = UriComponentsBuilder.fromUriString(url)
                 .queryParam("instrument", instrument)
                 .encode()
@@ -289,8 +292,9 @@ public class RenderController {
                 Song song = new Song(userDetails.getUsername(),name,
                         "无",
                         "uploads/"+userDetails.getUsername()+"/"+name+".midi");
+                System.out.println(song);
                 jpaSongService.insertSong(song);
-                return R.ok().message("文件接收并保存成功");
+                return R.ok().message("生成成功");
             }
         }
         return R.error().message("文件接收失败");
@@ -306,7 +310,7 @@ public class RenderController {
         RestTemplate restTemplate = new RestTemplate();
 
         // 使用UriComponentsBuilder构建URL
-        String url = "http://192.168.43.212:8888/GetBackBackControllers/music";
+        String url = "http://192.168.43.212:8887/GetBackBackControllers/music";
         URI uri = UriComponentsBuilder.fromUriString(url)
                 .queryParam("description", keyword)
                 .encode()
@@ -345,7 +349,8 @@ public class RenderController {
                         "无",
                         "uploads/"+userDetails.getUsername()+"/"+name+".wav");
                 jpaSongService.insertSong(song);
-                return R.ok().message("文件接收并保存成功");
+                System.out.println(song);
+                return R.ok().message("生成成功");
             }
         }
         return R.error().message("文件接收失败");
