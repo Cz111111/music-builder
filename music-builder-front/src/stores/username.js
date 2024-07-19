@@ -12,8 +12,10 @@ export const useUsername = defineStore('username',()=>{
     const removeUsername = ()=>{
         username.value = ''
     }
-
+    const isAuthenticated = () =>{
+        return username.value!=='';
+      }
     return{
-        username,setUsername,removeUsername
+        username,setUsername,removeUsername,isAuthenticated
     }
 })

@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Song;
+import io.lettuce.core.dynamic.annotation.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -13,4 +14,7 @@ public interface SongRepository extends JpaRepository<Song, Integer> {
     @Query("select s from Song s where s.username=?1")
     public List<Song> findByUsername(String username);
     public Song findByUsernameAndSongnameAndSongwordAndAddress(String username,String songname,String songword,String address);
+
+    @Query("SELECT s FROM Song s WHERE s.address LIKE %:extension%")
+    List<Song> findByAddressLike(@Param("extension") String extension);
 }

@@ -1,9 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.common.R;
+import com.example.demo.model.OtherFile;
+import com.example.demo.model.Song;
 import com.example.demo.service.FileUploadService;
+import com.example.demo.service.JpaOtherFileService;
+import com.example.demo.service.JpaSongService;
 import com.example.demo.service.RenderService;
+import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,10 +24,21 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 @RestController
 @RequestMapping("/render")
@@ -25,28 +47,85 @@ public class RenderController {
     RenderService renderService;
 
     @Autowired
-    private FileUploadService fileUploadService;
+    JpaSongService jpaSongService;
+    @Autowired
+    private JpaOtherFileService jpaOtherFileService;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+
     @PostMapping ("/one")
     public R submit(@RequestParam("midi") MultipartFile file,
                     @RequestParam("songword") String songword,
                     @RequestParam("region") String region,
                     @RequestParam("wavname") String wavname,
                     @AuthenticationPrincipal UserDetails userDetails
-                    ){
+                    ) throws IOException {
  //       renderService.submit(renderInfo);
+        songword=songword.replace("+", "%2B");
         System.out.println(file.getName());
         System.out.println(songword);
         System.out.println(region);
         System.out.println(wavname);
-        /*
-        if(true){
-            return R.ok().message("生成成功");
+
+        RestTemplate restTemplate = new RestTemplate();
+        List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+        ByteArrayHttpMessageConverter byteArrayConverter = new ByteArrayHttpMessageConverter();
+        messageConverters.add(byteArrayConverter);
+        restTemplate.setMessageConverters(messageConverters);
+        String url = "http://172.20.10.11:8887/GetBackBackControllers/render";
+        String uriStr = String.format("%s?singer=%s&lyrics=%s&wavName=%s", url, region, songword, wavname);
+        // 创建请求头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        headers.set("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
+        headers.set("Accept", "application/octet-stream"); // 假设响应内容类型为二进制流
+        headers.set("Host", "localhost:8887");
+        headers.set("Connection", "keep-alive");
+
+        // 创建请求体
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("midiFile", new ByteArrayResource(file.getBytes()) {
+            @Override
+            public String getFilename() {
+                return file.getOriginalFilename();
+            }
+        }); // 添加文件
+        System.out.println(uriStr);
+        // 创建请求实体
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        // 发送请求并接收响应
+        ResponseEntity<byte[]> response = restTemplate.postForEntity(uriStr, requestEntity, byte[].class);
+
+        // 处理响应
+        if (response.getStatusCode().is2xxSuccessful()) {
+            byte[] fileContent = response.getBody();
+            if (fileContent != null) {
+                String relativePath = "uploads/" + userDetails.getUsername() + "/";
+                String relativePathToRoot = Path.of("").normalize().toString();
+                String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+                String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
+                // 创建目录
+                File directory = new File(absolutePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // 构建文件路径
+                File outputFile = new File(directory, wavname+".wav");
+
+                // 使用FileOutputStream写入数据
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    fos.write(fileContent);
+                }
+                System.out.println("文件已保存到: " + outputFile.getAbsolutePath());
+                songword=songword.replace("%2B", "+");
+                Song song = new Song(userDetails.getUsername(),wavname,
+                        songword,
+                        "uploads/"+userDetails.getUsername()+"/"+wavname+".wav");
+                jpaSongService.insertSong(song);
+                return R.ok().message("文件接收并保存成功");
+            }
         }
-        return R.error().message("生成失败");
-        */
-        return R.ok().message("生成成功");
+        return R.error().message("文件接收失败");
     }
 
     @PostMapping ("/two")
@@ -57,72 +136,170 @@ public class RenderController {
         System.out.println(name);
         System.out.println(file.getName());
 
-            // 将文件转换为MultipartFile
-            // 创建请求头
+        RestTemplate restTemplate = new RestTemplate();
+        List<HttpMessageConverter<?>> messageConverters = restTemplate.getMessageConverters();
+        ByteArrayHttpMessageConverter byteArrayConverter = new ByteArrayHttpMessageConverter();
+        messageConverters.add(byteArrayConverter);
+        restTemplate.setMessageConverters(messageConverters);
+        String url = "http://172.20.10.11:8887/GetBackBackControllers/some";
+
+        // 创建请求头
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.set("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
-        headers.set("Accept", "*/*");
-        headers.set("Host", "localhost:7014");
+        headers.set("User-Agent", "Your User Agent");
+        headers.set("Accept", "application/octet-stream"); // 假设响应内容类型为二进制流
+        headers.set("Host", "localhost:8887");
         headers.set("Connection", "keep-alive");
 
         // 创建请求体
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("wavFile", file);
+        body.add("wavFile", new ByteArrayResource(file.getBytes()) {
+            @Override
+            public String getFilename() {
+                return file.getOriginalFilename();
+            }
+        }); // 添加文件
 
-            // 创建请求
+        // 创建请求实体
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-            // 发送请求
-        ResponseEntity<InputStream> response = restTemplate.postForEntity("http://192.168.56.85:8080/GetBackBackControllers/some", requestEntity, InputStream.class);
+        // 发送请求并接收响应
+        ResponseEntity<byte[]> response = restTemplate.postForEntity(url, requestEntity, byte[].class);
 
-            // 处理响应
+        // 处理响应
         if (response.getStatusCode().is2xxSuccessful()) {
-            // 从响应中获取InputStream
-            InputStream inputStream = response.getBody();
+            byte[] fileContent = response.getBody();
+            if (fileContent != null) {
+                String relativePath = "uploads/" + userDetails.getUsername() + "/";
+                String relativePathToRoot = Path.of("").normalize().toString();
+                String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+                String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
 
-            // 将InputStream写入文件
-            // 使用ByteArrayOutputStream来存储InputStream中的数据
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
+                // 创建目录
+                File directory = new File(absolutePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                long timestamp = System.currentTimeMillis();
+                String newFilename = name + "_" + timestamp;
+                // 构建文件路径
+                File outputFile = new File(directory, newFilename+".midi");
+
+                // 使用FileOutputStream写入数据
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    fos.write(fileContent);
+                }
+                System.out.println("文件已保存到: " + outputFile.getAbsolutePath());
+
+                Song song = new Song(userDetails.getUsername(),name,
+                        "无",
+                        "uploads/"+userDetails.getUsername()+"/"+newFilename+".midi");
+                jpaSongService.insertSong(song);
+                return R.ok().message("文件接收并保存成功");
             }
-
-            // 获取字节数据
-            byte[] fileData = byteArrayOutputStream.toByteArray();
-
-            boolean b = fileUploadService.uploadFile(fileData,name, userDetails.getUsername());
-            // 指定保存文件的路径
-            if(b){
-                return R.ok().message("生成成功");
-            }
-        } else {
-            System.out.println("Failed to get file: " + response.getStatusCode());
         }
-        return R.error().message("生成失败");
-
+        return R.error().message("文件接收失败");
     }
 
     @PostMapping ("/three")
     public R request3(@RequestParam("keyword") String keyword,
                       @RequestParam("name") String name,
-                      @AuthenticationPrincipal UserDetails userDetails){
+                      @AuthenticationPrincipal UserDetails userDetails) throws  IOException{
         System.out.println(keyword);
         System.out.println(name);
+        RestTemplate restTemplate = new RestTemplate();
 
-        return R.ok().message("生成成功");
+        // 使用UriComponentsBuilder构建URL
+        String url = "http://172.20.10.11:8887/GetBackBackControllers/paint";
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("keyWord", keyword)
+                .queryParam("Pname", name)
+                .encode()
+                .build()
+                .toUri();
+
+        // 发送GET请求，直接获取响应体为byte数组
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(uri, byte[].class);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            // 获取响应体的字节数据
+            byte[] responseBody = response.getBody();
+
+            // 指定保存图片的路径和文件名
+            String relativePath = "uploads/"+userDetails.getUsername()+"/"; // 替换为实际路径
+            String relativePathToRoot = Path.of("").normalize().toString();
+            String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+            String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
+            System.out.println(absolutePath);
+            File outputFile = new File(absolutePath, name+".png"); // 可以指定文件名和格式
+
+
+            // 将字节数据写入文件
+            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                fos.write(responseBody);
+            }
+            OtherFile otherFile = new OtherFile(userDetails.getUsername(),name,
+                    "uploads/"+userDetails.getUsername()+"/"+name+".png");
+            jpaOtherFileService.insertFile(otherFile);
+            return R.ok().message("图片生成成功");
+        } else {
+            return R.error().message("生成失败");
+        }
     }
 
     @PostMapping ("/four")
     public R request4(@RequestParam("instrument") String instrument,
                       @RequestParam("name") String name,
-                      @AuthenticationPrincipal UserDetails userDetails){
+                      @AuthenticationPrincipal UserDetails userDetails) throws FileNotFoundException {
         System.out.println(instrument);
         System.out.println(name);
+        RestTemplate restTemplate = new RestTemplate();
 
-        return R.ok().message("生成成功");
+        // 使用UriComponentsBuilder构建URL
+        String url = "http://172.20.10.11:8887/GetBackBackControllers/arrange";
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("instrument", instrument)
+                .encode()
+                .build()
+                .toUri();
+
+        // 发送GET请求，直接获取响应体为byte数组
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(uri, byte[].class);
+
+        // 处理响应
+        if (response.getStatusCode().is2xxSuccessful()) {
+            byte[] fileContent = response.getBody();
+            if (fileContent != null) {
+                String relativePath = "uploads/" + userDetails.getUsername() + "/";
+                String relativePathToRoot = Path.of("").normalize().toString();
+                String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+                String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
+
+                // 创建目录
+                File directory = new File(absolutePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // 构建文件路径
+                File outputFile = new File(directory, name+".midi");
+
+                // 使用FileOutputStream写入数据
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    fos.write(fileContent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("文件已保存到: " + outputFile.getAbsolutePath());
+                Song song = new Song(userDetails.getUsername(),name,
+                        "无",
+                        "uploads/"+userDetails.getUsername()+"/"+name+".midi");
+                System.out.println(song);
+                jpaSongService.insertSong(song);
+                return R.ok().message("生成成功");
+            }
+        }
+        return R.error().message("文件接收失败");
     }
 
     @PostMapping ("/five")
@@ -132,7 +309,91 @@ public class RenderController {
         System.out.println(keyword);
         System.out.println(name);
 
-        return R.ok().message("生成成功");
-    }
+        RestTemplate restTemplate = new RestTemplate();
 
+        // 使用UriComponentsBuilder构建URL
+        String url = "http://172.20.10.11:8887/GetBackBackControllers/music";
+        URI uri = UriComponentsBuilder.fromUriString(url)
+                .queryParam("description", keyword)
+                .encode()
+                .build()
+                .toUri();
+
+        // 发送GET请求，直接获取响应体为byte数组
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(uri, byte[].class);
+
+        // 处理响应
+        if (response.getStatusCode().is2xxSuccessful()) {
+            byte[] fileContent = response.getBody();
+            if (fileContent != null) {
+                String relativePath = "uploads/" + userDetails.getUsername() + "/";
+                String relativePathToRoot = Path.of("").normalize().toString();
+                String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+                String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
+
+                // 创建目录
+                File directory = new File(absolutePath);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // 构建文件路径
+                File outputFile = new File(directory, name+".wav");
+
+                // 使用FileOutputStream写入数据
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    fos.write(fileContent);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("文件已保存到: " + outputFile.getAbsolutePath());
+                Song song = new Song(userDetails.getUsername(),name,
+                        "无",
+                        "uploads/"+userDetails.getUsername()+"/"+name+".wav");
+                jpaSongService.insertSong(song);
+                System.out.println(song);
+                return R.ok().message("生成成功");
+            }
+        }
+        return R.error().message("文件接收失败");
+    }
+    @PostMapping ("/six")
+    public R cloudUpdate(@RequestParam("midi") MultipartFile file,
+                    @RequestParam("songword") String songword,
+                    @AuthenticationPrincipal UserDetails userDetails
+    ) throws IOException {
+        //       renderService.submit(renderInfo);
+        System.out.println(file.getName());
+        System.out.println(songword);
+
+        if (file.isEmpty()) {
+            return R.error().message("文件不能为空");
+        }
+
+
+        String relativePath = "uploads/" + userDetails.getUsername() + "/";
+        String relativePathToRoot = Path.of("").normalize().toString();
+        String projectRootPath = new File(relativePathToRoot).getAbsolutePath();
+        String absolutePath = new File(projectRootPath, relativePath).getAbsolutePath();
+                // 创建目录
+        File directory = new File(absolutePath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        long timestamp = System.currentTimeMillis();
+        String newFilename = "_" + timestamp;
+                // 构建文件路径
+        File outputFile = new File(directory, newFilename+".midi");
+
+                // 使用FileOutputStream写入数据
+        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+            fos.write(file.getBytes());
+        }
+        System.out.println("文件已保存到: " + outputFile.getAbsolutePath());
+        Song song = new Song(userDetails.getUsername(),newFilename,
+                songword,
+                "uploads/"+userDetails.getUsername()+"/"+newFilename+".midi");
+        jpaSongService.insertSong(song);
+        return R.ok().message("云保存成功");
+    }
 }

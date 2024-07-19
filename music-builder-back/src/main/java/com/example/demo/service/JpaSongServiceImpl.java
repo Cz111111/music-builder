@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Song;
 import com.example.demo.repository.SongRepository;
+import io.lettuce.core.dynamic.annotation.Param;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,8 @@ public class JpaSongServiceImpl implements JpaSongService {
     }
     public void deleteSong(Song song){
         songRepository.delete(song);
+    }
+    public List<Song> findByAddressLike(@Param("extension") String extension){
+        return songRepository.findByAddressLike(extension);
     }
 }

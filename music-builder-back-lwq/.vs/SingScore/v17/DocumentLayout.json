@@ -1,0 +1,181 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\services\\handle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\handle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\controllers\\audiocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:controllers\\audiocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:dto\\filedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\repostories\\audiocontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:repostories\\audiocontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\services\\audioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:services\\audioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\models\\audio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:models\\audio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\singscore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:singscore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|c:\\users\\123\\desktop\\sing\\singscore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B1E0F08-79B4-43BD-A2A1-CCAED8CAC514}|SingScore.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FileDTO.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\DTO\\FileDTO.cs",
+              "RelativeDocumentMoniker": "DTO\\FileDTO.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\DTO\\FileDTO.cs",
+              "RelativeToolTip": "DTO\\FileDTO.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T11:01:45.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Functions.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\Functions.cs",
+              "RelativeDocumentMoniker": "Services\\Functions.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\Functions.cs",
+              "RelativeToolTip": "Services\\Functions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T01:34:23.223Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Handle.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\Handle.cs",
+              "RelativeDocumentMoniker": "Services\\Handle.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\Handle.cs",
+              "RelativeToolTip": "Services\\Handle.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAewBUAAABxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-09T00:41:24.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AudioController.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Controllers\\AudioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AudioController.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Controllers\\AudioController.cs",
+              "RelativeToolTip": "Controllers\\AudioController.cs",
+              "ViewState": "AQIAAGQAAAAAAAAAAAAkwHAAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T03:58:00.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AudioContext.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Repostories\\AudioContext.cs",
+              "RelativeDocumentMoniker": "Repostories\\AudioContext.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Repostories\\AudioContext.cs",
+              "RelativeToolTip": "Repostories\\AudioContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T03:48:32.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "AudioService.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\AudioService.cs",
+              "RelativeDocumentMoniker": "Services\\AudioService.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Services\\AudioService.cs",
+              "RelativeToolTip": "Services\\AudioService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T03:46:12.707Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Audio.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Models\\Audio.cs",
+              "RelativeDocumentMoniker": "Models\\Audio.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Models\\Audio.cs",
+              "RelativeToolTip": "Models\\Audio.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T03:36:16.456Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-08T03:33:39.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SingScore.csproj",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\SingScore.csproj",
+              "RelativeDocumentMoniker": "SingScore.csproj",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\SingScore.csproj",
+              "RelativeToolTip": "SingScore.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvw4AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-08T03:31:16.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\123\\Desktop\\Sing\\SingScore\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-08T03:28:51.652Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

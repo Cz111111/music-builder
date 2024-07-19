@@ -11,6 +11,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 90MB  # 单个文件的最大大小
+      max-request-size: 90MB  #
 
 security:
   oauth2:

@@ -75,7 +75,6 @@ const handleSubmit = async() => {
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header class="header">Header</el-header>
       <el-main class="main">
         <div class="register-container">
             <div class="rd">
@@ -149,7 +148,7 @@ const handleSubmit = async() => {
 
 
 .main{
-    height: 700px;
+    height: 100%;
     background-color: rgb(220, 220, 220);
     display: flex;
     justify-content: center;
