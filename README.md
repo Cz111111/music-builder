@@ -45,6 +45,13 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 
 <br/>
 
+#### 歌词生成后端
+
+---
+music-builder-czh即为歌词生成后端所在，使用了llama3中文微调模型，需要使用pycharm，配置python版本为3.11，然后根据电脑选择合适的pytorch，推荐CUDA版本12.1，由于空间限制，模型源码请邮件940527909@qq.com询问。
+
+<br/>
+
 ### 🌾技术说明
 本部分是说明项目的技术架构和重难点
 <br/>
@@ -52,7 +59,14 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 #### k歌模块
 
 ---
-前端接收用户上传的音频文件和歌词文件，歌词文件直接在前端js实时渲染，音频文件传输到后端，后端再调用spleeter模型进行音频的伴奏和人声分离，再将存储的url返回到前端。前端根据相应的url找到对应文件所在地就可以开始k歌了。
+前端接收用户上传的音频文件和歌词文件，歌词文件直接在前端js实时渲染，音频文件传输到后端，后端再调用spleeter模型进行音频的伴奏和人声分离，再将存储的url返回到前端。前端根据相应的url找到对应文
+所在地就可以开始k歌了。
+<br/>
+
+#### 音乐编辑
+
+---
+在这个界面用户可自由对音乐进行创作。使用Tone.js来编辑音符，使用konva.js来渲染钢琴卷等界面UI
 <br/>
 
 #### 前端intro
@@ -68,6 +82,7 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 - SpringSecurity框架
 - C# EFcore框架
 - spleeter分离模型
+- FastAPI框架
 
 [![ALL Skills](https://skillicons.dev/icons?i=vue,c#)](https://skillicons.dev)
 
@@ -80,4 +95,6 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 
 - [P1erreCashon](https://github.com/P1erreCashon/)
   前后端框架搭建，后端SpringSecurity框架搭建，后端实现
-- [姓名3](https://github.com/用户名3)
+- [Cz111111](https://github.com/Cz111111/)
+  音乐编辑前端实现，文生词模型部署与微调
+- [姓名](https://github.com/用户名/)
