@@ -33,6 +33,11 @@ music-builder-front即为前端文件所在，打开文件夹，输入
 即可以启动前端
 <br/>
 
+#### 后端
+先安装java17并且在配置文件中将数据库信息改为本地数据库信息，然后在intelijIDEA里启动项目即可
+
+<br/>
+
 #### k歌模块后端
 
 ---
@@ -59,6 +64,8 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 ### ⚡All Skills
 本项目使用的技术栈如下
 - Vue框架
+- SpringBoot框架
+- SpringSecurity框架
 - C# EFcore框架
 - spleeter分离模型
 
@@ -71,5 +78,6 @@ music-builder-lwq即为k歌模块后端所在，直接使用visual studio启动�
 - [BV003](https://github.com/BV003/)
   k歌模块，前端intro部分的设计
 
-- [姓名2](https://github.com/)
+- [P1erreCashon](https://github.com/P1erreCashon/)
+  前后端框架搭建，后端SpringSecurity框架搭建，后端实现
 - [姓名3](https://github.com/用户名3)
